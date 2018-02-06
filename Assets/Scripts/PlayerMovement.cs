@@ -10,17 +10,23 @@ public class PlayerMovement : MonoBehaviour {
     public bool left = true;
     public bool right = true;
     public GameObject bullet;
-    public Transform bulletPos;
+    public Camera m_camera;
+    Vector2 ScreenBounds;
+    Vector2 PlayerBounds;
 	// Use this for initialization
-	void Start () {
-		
-	}
+	void Awake () {
+
+        ScreenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+        PlayerBounds = this.GetComponent<SpriteRenderer>().bounds.size;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
         fireRate = fireRate - Time.deltaTime;
         Inputs();
-        
+        MoveBounds();
+        print(this.transform.position);
 	}
 
     void Inputs() {
@@ -35,7 +41,27 @@ public class PlayerMovement : MonoBehaviour {
     void Shoot() {
 
         fireRate = 0.3f;
-        Instantiate(bullet,new Vector3(this.transform.position.x,this.transform.position.y + this.GetComponent<SpriteRenderer>().bounds.size.y/2,0), Quaternion.identity);
+        Instantiate(bullet,new Vector3(this.transform.position.x,this.transform.position.y + PlayerBounds.y/2,0), Quaternion.identity);
 
+    }
+    void MoveBounds() {
+        left = true;
+        right = true;
+        if (this.transform.position.x <= (-(ScreenBounds.x) + PlayerBounds.x / 2))
+        {
+
+            left = false;
+            
+        }
+        else {
+           
+            if (this.transform.position.x >= ((ScreenBounds.x) - PlayerBounds.x / 2))
+            {
+
+                right = false;
+               
+            }
+
+        }
     }
 }
