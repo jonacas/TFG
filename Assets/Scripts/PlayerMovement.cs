@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour {
         fireRate = fireRate - Time.deltaTime;
         Inputs();
         MoveBounds();
-        print(this.transform.position);
+       
 	}
 
     void Inputs() {
