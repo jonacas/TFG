@@ -281,8 +281,8 @@ InputManager:
     m_Name: Bumper1
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: return
+    negativeButton: joystick button 4
+    positiveButton: joystick button 5
     altNegativeButton: 
     altPositiveButton: joystick button 5
     gravity: 1000
