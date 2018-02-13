@@ -157,6 +157,40 @@ Prefab:
       propertyPath: m_camera
       value: 
       objectReference: {fileID: 1123748563}
+    - target: {fileID: 212192415262747684, guid: 49776a440b1ded742bae3f50156d0848,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8cef9fc01a585924bb48d256ac2da94b,
+        type: 3}
+    - target: {fileID: 212192415262747684, guid: 49776a440b1ded742bae3f50156d0848,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212192415262747684, guid: 49776a440b1ded742bae3f50156d0848,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778844422754982, guid: 49776a440b1ded742bae3f50156d0848, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778844422754982, guid: 49776a440b1ded742bae3f50156d0848, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212192415262747684, guid: 49776a440b1ded742bae3f50156d0848,
+        type: 2}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212192415262747684, guid: 49776a440b1ded742bae3f50156d0848,
+        type: 2}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49776a440b1ded742bae3f50156d0848, type: 2}
   m_IsPrefabParent: 0
@@ -337,7 +371,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ad06a5f8d0d67a342b0ca2aaafca6a14, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
