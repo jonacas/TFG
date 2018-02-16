@@ -12,6 +12,8 @@ public class PlayerMovementLV3 : MonoBehaviour {
     public bool down = true;
     public float impulseForce = 2;
     public GameObject bullet;
+    public Transform bulletExit1;
+    public Transform bulletExit2;
     public Camera m_camera;
     Vector2 ScreenBounds;
     Vector2 PlayerBounds;
@@ -58,7 +60,8 @@ public class PlayerMovementLV3 : MonoBehaviour {
     {
 
         fireRate = 0.1f;
-        Instantiate(bullet, new Vector3(this.transform.position.x, this.transform.position.y + PlayerBounds.y / 2, 0), Quaternion.identity);
+        Instantiate(bullet, new Vector3(bulletExit1.position.x, bulletExit1.position.y, 0), Quaternion.identity);
+        Instantiate(bullet, new Vector3(bulletExit2.position.x, bulletExit2.position.y, 0), Quaternion.identity);
 
     }
     void MoveBounds()
