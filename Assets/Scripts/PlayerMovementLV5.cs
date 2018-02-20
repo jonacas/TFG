@@ -25,7 +25,8 @@ public class PlayerMovementLV5 : MonoBehaviour {
 
         /*this.transform.position = this.transform.position + new Vector3(turnSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), Time.deltaTime * turnSpeed * Input.GetAxis("Vertical"), Time.deltaTime * speed);
         this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(turnSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), Time.deltaTime * turnSpeed * Input.GetAxis("Vertical"), 0);*/
-        rbd.velocity = new Vector3(turnSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), Time.deltaTime * turnSpeed * Input.GetAxis("Vertical"), Time.deltaTime * speed);
+        //rbd.velocity = new Vector3(turnSpeed * Time.deltaTime * Input.GetAxis("Horizontal"), Time.deltaTime * turnSpeed * Input.GetAxis("Vertical"), Time.deltaTime * speed);
+        this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed));
         this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(turnSpeed * Time.deltaTime * Input.GetAxis("Vertical"), Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
 
     }
