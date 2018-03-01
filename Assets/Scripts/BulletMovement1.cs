@@ -24,8 +24,16 @@ public class BulletMovement1 : MonoBehaviour {
 
             Destroy(this.gameObject);
         }
+    }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
 
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
 
+        }
     }
 }
