@@ -7,6 +7,7 @@ public class EnemyMovement : MonoBehaviour {
     public GameObject bullet;
     Vector2 ScreenBounds;
     Vector2 EnemyBounds;
+    
 
     void Awake()
     {
@@ -51,6 +52,7 @@ public class EnemyMovement : MonoBehaviour {
 
     public void Shoot() {
 
+        Instantiate(bullet, new Vector3(this.transform.position.x, this.transform.position.y - EnemyBounds.y / 2, 0), Quaternion.identity);
 
     }
   
