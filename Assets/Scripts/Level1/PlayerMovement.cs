@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour {
     public bool left = true;
     public bool right = true;
     public GameObject bullet;
-    public Camera m_camera;
     Vector2 ScreenBounds;
     Vector2 PlayerBounds;
 	// Use this for initialization
