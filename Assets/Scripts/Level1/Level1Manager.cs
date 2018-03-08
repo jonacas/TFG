@@ -14,7 +14,7 @@ public class Level1Manager : MonoBehaviour {
     float offset = 1f;
     Random rnd;
     int[] actualCol= new int[11] { 4,4,4,4,4,4,4,4,4,4,4} ;
-    float shootTimer = 0.5f;
+    float shootTimer = 1f;
     Vector2 enemyBounds;
 
 	// Use this for initialization
