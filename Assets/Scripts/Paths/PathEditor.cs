@@ -5,7 +5,7 @@ using UnityEngine;
 public class PathEditor : MonoBehaviour {
 
 
-    public Color rayColor = Color.black;
+    public Color rayColor = Color.white;
     public List<Transform> pathPoints = new List<Transform>();
     Transform[] transforms;
 
