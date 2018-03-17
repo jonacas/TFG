@@ -27,7 +27,7 @@ public class MoveOnPath : MonoBehaviour {
         transform.position = Vector3.MoveTowards(transform.position, PathToFollow.pathPoints[currentWayPoint].position, Time.deltaTime * speed);
         transform.position = new Vector3(transform.position.x,transform.position.y,0);
 
-        var rotation = Quaternion.LookRotation(PathToFollow.pathPoints[currentWayPoint].position- transform.position);
+        var rotation = Quaternion.LookRotation(PathToFollow.pathPoints[currentWayPoint].position);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, 0, 0);
 
