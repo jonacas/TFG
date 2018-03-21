@@ -10,6 +10,10 @@ public class MoveOnPath : MonoBehaviour {
     public float speed;
     private float reachDistance = 1;
     public float rotationSpeed = 5;
+    public float timeStop = 0f;
+    public int wayPointStop = 0;
+    bool stop = false;
+    public GameObject Padre;
 
     Vector3 lastPosition;
     Vector3 currentPosition;
@@ -17,30 +21,71 @@ public class MoveOnPath : MonoBehaviour {
 	void Start () {
 
         lastPosition = transform.position;
+    
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+
+        if (wayPointStop == currentWayPoint)
+        {
+
+            stop = true;
+            if (timeStop >= 0)
+            {
+                timeStop = timeStop - Time.deltaTime;
+            }
+            else
+            {
+                stop = false;
+            }
+
+
+        }
+        Move();
+
+	}
+
+    void Move() {
+
         float distance = Vector3.Distance(PathToFollow.pathPoints[currentWayPoint].position, transform.position);
         transform.position = Vector3.MoveTowards(transform.position, PathToFollow.pathPoints[currentWayPoint].position, Time.deltaTime * speed);
-        transform.position = new Vector3(transform.position.x,transform.position.y,0);
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 
         var rotation = Quaternion.LookRotation(PathToFollow.pathPoints[currentWayPoint].position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+        transform.LookAt(PathToFollow.pathPoints[currentWayPoint].position);
         transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, 0, 0);
 
+        if (stop) {
+            //rotation = Quaternion.LookRotation(PlayerMovementLV2.currentInstance.transform.position);
+            transform.LookAt(PlayerMovementLV2.currentInstance.transform.position);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+            transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, 0, 0);
 
-        if (distance <= reachDistance) {
+        }
+
+        if (distance <= reachDistance && !stop)
+        {
 
             currentWayPoint++;
         }
 
-        if (currentWayPoint >= PathToFollow.pathPoints.Count) {
-
-            currentWayPoint = 0;
+        if (currentWayPoint >= PathToFollow.pathPoints.Count)
+        {
+            currentWayPoint = PathToFollow.pathPoints.Count;
+            Destroy(Padre, 1);
 
         }
-	}
+
+
+
+    }
+
+
+
+
+
 }

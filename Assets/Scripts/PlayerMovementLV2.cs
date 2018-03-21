@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovementLV2 : MonoBehaviour {
+    public static PlayerMovementLV2 currentInstance;
     public float speed = 3;
     public float fireRate = 0.1f;
     public bool left = true;
@@ -17,7 +18,7 @@ public class PlayerMovementLV2 : MonoBehaviour {
     // Use this for initialization
     void Awake()
     {
-
+        currentInstance = this;
         ScreenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
         PlayerBounds = this.GetComponent<SpriteRenderer>().bounds.size;
 
