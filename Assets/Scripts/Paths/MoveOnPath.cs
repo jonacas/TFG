@@ -15,6 +15,7 @@ public class MoveOnPath : MonoBehaviour {
     bool stop = false;
     public GameObject Padre;
 
+
     Vector3 lastPosition;
     Vector3 currentPosition;
 	// Use this for initialization
@@ -83,6 +84,8 @@ public class MoveOnPath : MonoBehaviour {
 
 
     }
+
+
 
 
 

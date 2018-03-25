@@ -7,10 +7,11 @@ public class EnemyIALevel2 : MonoBehaviour {
 
     public GameObject player;
     public GameObject bullet;
+    public GameObject Padre;
+    public int HP = 2;
     float shootDealay = 0.5f;
 	// Use this for initialization
 	void Start () {
-		
 	}
 	
 	// Update is called once per frame
@@ -33,6 +34,19 @@ public class EnemyIALevel2 : MonoBehaviour {
 
         shootDealay = 2.5f;
         Instantiate(bullet, transform.position,Quaternion.identity);
+
+    }
+
+    public void Damage() {
+
+        HP = HP - 1;
+        if (HP <= 0) {
+
+            Destroy(Padre);
+            
+
+        }
+
 
     }
 }
