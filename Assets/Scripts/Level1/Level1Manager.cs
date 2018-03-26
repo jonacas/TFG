@@ -34,7 +34,7 @@ public class Level1Manager : MonoBehaviour {
 
     void Update()
     {
-
+        EnemiesMove();
         shootTimer = shootTimer - Time.deltaTime;
         if (shootTimer <= 0)
         {
@@ -44,31 +44,34 @@ public class Level1Manager : MonoBehaviour {
             }
 
         }
-      
-        
 
     }
 
-    private void FixedUpdate()
-    {
+    void EnemiesMove() {
 
-        if (previousRight != right)
+        int i = 0;
+        for (int row = 0; row < 11; row++)
         {
+            for (int col = 0; col < 5; col++)
+            {
+                
+                if (Level1Manager.currentInstance.right)
+                {
 
-            PositionFix();
-            previousRight = right;
-        }
+                    i = 1;
+                    
+                }
+                else
+                {
 
-    }
+                    i = -1;
+
+                }
+
+                enemies[row, col].GetComponent<EnemyMovement>().MoveEnemy(Vector3.right * i);
 
 
-    void PositionFix() {
-
-        for (int col = 1; col < 5; col++) {
-
-            enemies[0, col].transform.position = new Vector2(enemies[0,col-1].transform.position.x, enemies[0, col].transform.position.y);
-            enemies[10, col].transform.position = new Vector2(enemies[10, col - 1].transform.position.x, enemies[10, col].transform.position.y);
-
+            }
         }
 
 

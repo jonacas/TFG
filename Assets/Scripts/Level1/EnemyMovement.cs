@@ -14,25 +14,24 @@ public class EnemyMovement : MonoBehaviour {
 
         ScreenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
         EnemyBounds = this.GetComponent<SpriteRenderer>().bounds.size;
-
+        
 
     }
     // Update is called once per frame
     void Update () {
 
-        if (Level1Manager.currentInstance.right)
-        {
 
-            transform.position = transform.position + Vector3.right * Time.deltaTime;
-        }
-        else {
-
-            transform.position = transform.position + Vector3.left * Time.deltaTime;
-
-        }
         MoveBounds();
+        
+        
 
 	}
+
+    public void MoveEnemy(Vector3 v) {
+
+        transform.position = transform.position + v * Time.deltaTime;
+
+    }
 
     void MoveBounds()
     {
