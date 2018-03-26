@@ -16,6 +16,7 @@ public class Level1Manager : MonoBehaviour {
     int[] actualCol= new int[11] { 4,4,4,4,4,4,4,4,4,4,4} ;
     float shootTimer = 1f;
     Vector2 enemyBounds;
+    bool previousRight = false;
 
 	// Use this for initialization
 	void Awake () {
@@ -43,9 +44,35 @@ public class Level1Manager : MonoBehaviour {
             }
 
         }
+      
+        
 
     }
 
+    private void FixedUpdate()
+    {
+
+        if (previousRight != right)
+        {
+
+            PositionFix();
+            previousRight = right;
+        }
+
+    }
+
+
+    void PositionFix() {
+
+        for (int col = 1; col < 5; col++) {
+
+            enemies[0, col].transform.position = new Vector2(enemies[0,col-1].transform.position.x, enemies[0, col].transform.position.y);
+            enemies[10, col].transform.position = new Vector2(enemies[10, col - 1].transform.position.x, enemies[10, col].transform.position.y);
+
+        }
+
+
+    }
 
     bool EnemyShoot() {
 
