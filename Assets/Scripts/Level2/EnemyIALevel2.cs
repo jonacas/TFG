@@ -33,7 +33,9 @@ public class EnemyIALevel2 : MonoBehaviour {
     void Shoot() {
 
         shootDealay = 2.5f;
-        Instantiate(bullet, transform.position,Quaternion.identity);
+        Instantiate(bullet, transform.position,transform.rotation);
+        
+        
 
     }
 
