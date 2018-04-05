@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class PlayerMovementLV4 : MonoBehaviour {
 
-
+    public float fireRate = 0.2f;
     public float speed = 5f;
+    public GameObject bullet1;
+    public GameObject bullet2;
+    public Transform bulletExit1;
+    public Transform bulletExit2;
     bool left = true;
     bool right = true;
     bool up = true;
@@ -25,7 +29,7 @@ public class PlayerMovementLV4 : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        print(ScreenBounds);
+        fireRate = fireRate - Time.deltaTime;
         ReadInputs();
         MoveBounds();
 
@@ -40,8 +44,18 @@ public class PlayerMovementLV4 : MonoBehaviour {
         else if (left && m_move < 0) { this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move,0, 0); }
         if (up && m_up > 0) { this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0); }
         else if (down && m_up < 0) { this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0); }
+        if (Input.GetAxis("Fire1") != 0 && (fireRate < 0)) { Shoot(); }
 
     }
+    void Shoot()
+    {
+
+        fireRate = 0.2f;
+        Instantiate(bullet1, bulletExit1.position, bulletExit1.rotation);
+        Instantiate(bullet2, bulletExit2.position, bulletExit2.rotation);
+
+    }
+
     void MoveBounds()
     {
         left = true;
