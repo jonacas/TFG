@@ -12,6 +12,7 @@ public class PlayerMovementLV5 : MonoBehaviour {
     public Transform bulletExit1;
     public Transform bulletExit2;
     public float rotationOffset = -25f;
+    public GameObject playerShip;
     Rigidbody rbd;
     int rotationAxis = 0;
 	// Use this for initialization
@@ -54,7 +55,7 @@ public class PlayerMovementLV5 : MonoBehaviour {
 
         }
         this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed));
-        this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(turnSpeed * Time.deltaTime * Input.GetAxis("Vertical"), Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
+        this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(turnSpeed * Time.deltaTime * -Input.GetAxis("Vertical"), Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
         if (Input.GetAxis("Fire1") != 0 && (fireRate < 0)) { Shoot(); }
 
     }
@@ -69,7 +70,7 @@ public class PlayerMovementLV5 : MonoBehaviour {
     void Rotation(float x)
     {
 
-        this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, x * rotationOffset);
+        playerShip.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, x * rotationOffset);
 
     }
 }

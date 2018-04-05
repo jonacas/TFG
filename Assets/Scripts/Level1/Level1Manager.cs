@@ -67,8 +67,12 @@ public class Level1Manager : MonoBehaviour {
                     i = -1;
 
                 }
+                if (enemies[row, col] != null) {
 
-                enemies[row, col].GetComponent<EnemyMovement>().MoveEnemy(Vector3.right * i);
+                    enemies[row, col].GetComponent<EnemyMovement>().MoveEnemy(Vector3.right * i);
+
+                }
+                
 
 
             }

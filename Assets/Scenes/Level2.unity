@@ -848,6 +848,7 @@ MonoBehaviour:
   player: {fileID: 812977766}
   bullet: {fileID: 1962415526334790, guid: ff95291058b386f4d90ba2a0891e53e7, type: 2}
   Padre: {fileID: 1222595199}
+  attackDistance: 5
   HP: 2
 --- !u!61 &1996091617
 BoxCollider2D:

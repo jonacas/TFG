@@ -8,6 +8,7 @@ public class EnemyIALevel2 : MonoBehaviour {
     public GameObject player;
     public GameObject bullet;
     public GameObject Padre;
+    public float attackDistance;
     public int HP = 2;
     float shootDealay = 0.5f;
 	// Use this for initialization
@@ -21,7 +22,7 @@ public class EnemyIALevel2 : MonoBehaviour {
        
         float distance = Mathf.Abs(transform.position.x - player.transform.position.x);
         
-        if (distance < 3 && shootDealay <=0) {
+        if (distance < attackDistance && shootDealay <=0) {
 
             Shoot();
             
