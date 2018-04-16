@@ -61,10 +61,10 @@ public class MoveOnPath : MonoBehaviour {
         transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, 0, 0);
 
         if (stop && this.transform.position == PathToFollow.pathPoints[currentWayPoint].position) {
-            //rotation = Quaternion.LookRotation(PlayerMovementLV2.currentInstance.transform.position);
-            transform.LookAt(PlayerMovementLV2.currentInstance.transform.position);
-            //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-            transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, 0, 0);
+            //transform.LookAt(PlayerMovementLV2.currentInstance.transform.position);
+            //transform.rotation = new Quaternion(0, 0, -90, 0);
+            transform.eulerAngles = new Vector3(0,0,-90);
+            
 
         }
 
