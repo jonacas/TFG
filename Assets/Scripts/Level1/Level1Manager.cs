@@ -28,7 +28,7 @@ public class Level1Manager : MonoBehaviour {
             for (int col = 0; col < 5; col++) {
 
                 if (col % 2 == 0) { enemies[row, col] = Instantiate(enemy, new Vector2(initPosX + enemyBounds.x * row + offset, initPosY - enemyBounds.y * col - offset), Quaternion.identity); }
-                //else { enemies[row, col] = Instantiate(enemy2, new Vector2(initPosX + enemyBounds.x * row + offset, initPosY - enemyBounds.y * col - offset), Quaternion.identity); }
+                else { enemies[row, col] = Instantiate(enemy2, new Vector2(initPosX + enemyBounds.x * row + offset, initPosY - enemyBounds.y * col - offset), Quaternion.identity); }
                 
 
             }
@@ -53,7 +53,7 @@ public class Level1Manager : MonoBehaviour {
     void EnemiesMove() {
 
         int i = 0;
-        int d = 0;
+
         for (int row = 0; row < 11; row++)
         {
             for (int col = 0; col < 5; col++)
@@ -61,30 +61,20 @@ public class Level1Manager : MonoBehaviour {
                 
                 if (Level1Manager.currentInstance.right)
                 {
-                    d = -1;
+                   
                     i = 1;
                     
                 }
                 else
                 {
-                    d = 1;
+                    
                     i = -1;
 
                 }
                 if (enemies[row, col] != null) {
 
-                   
-                    if (col % 2 != 0)
-                    {
 
-                        enemies[row, col].GetComponent<EnemyMovement>().MoveEnemy(Vector3.right * d);
-
-
-                    }
-                    else {
-
-                        enemies[row, col].GetComponent<EnemyMovement>().MoveEnemy(Vector3.right * i);
-                    }
+                    enemies[row, col].GetComponent<EnemyMovement>().MoveEnemy(Vector3.right * i);
 
                 }
 
