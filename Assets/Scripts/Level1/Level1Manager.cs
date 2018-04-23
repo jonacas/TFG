@@ -17,7 +17,7 @@ public class Level1Manager : MonoBehaviour {
     int[] actualCol= new int[11] { 4,4,4,4,4,4,4,4,4,4,4} ;
     float shootTimer = 1f;
     Vector2 enemyBounds;
-    bool previousRight = false;
+    
 
 	// Use this for initialization
 	void Awake () {
@@ -43,7 +43,7 @@ public class Level1Manager : MonoBehaviour {
         {
             if (EnemyShoot()) {
 
-                shootTimer = 0.5f;
+                shootTimer = 1f;
             }
 
         }
@@ -73,7 +73,8 @@ public class Level1Manager : MonoBehaviour {
                 if (col % 2 == 0)
                 {
 
-                    i = i * -1;
+                    //i = i * -1;
+
 
                 }
                 if (enemies[row, col] != null) {
