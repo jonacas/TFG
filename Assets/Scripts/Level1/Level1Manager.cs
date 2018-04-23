@@ -8,6 +8,7 @@ public class Level1Manager : MonoBehaviour {
     public static Level1Manager currentInstance;
     public bool right = false;
     public GameObject enemy;
+    public GameObject enemy2;
     GameObject[,] enemies = new GameObject[11, 5];
     int initPosX = -5;
     int initPosY = 7;
@@ -26,7 +27,9 @@ public class Level1Manager : MonoBehaviour {
         for (int row = 0; row < 11; row++) {
             for (int col = 0; col < 5; col++) {
 
-                enemies[row, col] = Instantiate(enemy,new Vector2(initPosX + enemyBounds.x*row + offset, initPosY - enemyBounds.y*col - offset), Quaternion.identity);
+                if (col % 2 == 0) { enemies[row, col] = Instantiate(enemy, new Vector2(initPosX + enemyBounds.x * row + offset, initPosY - enemyBounds.y * col - offset), Quaternion.identity); }
+                else { enemies[row, col] = Instantiate(enemy2, new Vector2(initPosX + enemyBounds.x * row + offset, initPosY - enemyBounds.y * col - offset), Quaternion.identity); }
+                
 
             }
         }
@@ -67,13 +70,17 @@ public class Level1Manager : MonoBehaviour {
                     i = -1;
 
                 }
+                if (col % 2 == 0)
+                {
+
+                    i = i * -1;
+
+                }
                 if (enemies[row, col] != null) {
 
                     enemies[row, col].GetComponent<EnemyMovement>().MoveEnemy(Vector3.right * i);
 
                 }
-                
-
 
             }
         }
