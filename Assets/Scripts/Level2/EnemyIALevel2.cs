@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyIALevel2 : MonoBehaviour {
 
 
-    public GameObject player;
+    GameObject player;
     public GameObject bullet;
     public GameObject Padre;
     public float attackDistance;
@@ -13,6 +13,9 @@ public class EnemyIALevel2 : MonoBehaviour {
     float shootDealay = 0.5f;
 	// Use this for initialization
 	void Start () {
+
+        player = PlayerMovementLV2.currentInstance.gameObject;
+        
 	}
 	
 	// Update is called once per frame
