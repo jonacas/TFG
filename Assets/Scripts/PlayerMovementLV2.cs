@@ -60,13 +60,13 @@ public class PlayerMovementLV2 : MonoBehaviour {
         right = true;
         up = true;
         down = true;
-        if (this.transform.position.x <= (-(ScreenBounds.x) + PlayerBounds.x / 2))
+        if (this.transform.position.x <= (-(ScreenBounds.x/2) + PlayerBounds.x / 2))
         {
             left = false;
         }
         else
         {
-            if (this.transform.position.x >= ((ScreenBounds.x) - PlayerBounds.x / 2))
+            if (this.transform.position.x >= ((ScreenBounds.x/2) - PlayerBounds.x / 2))
             {
                 right = false;
             }
