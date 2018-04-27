@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Shoot {Basic, Double, Special };
+
 public class PlayerMovementLV2 : MonoBehaviour {
+
+    public Shoot shoot = global::Shoot.Basic;
     public static PlayerMovementLV2 currentInstance;
     public float speed = 3;
-    public float fireRate = 0.1f;
+    public float fireRate = 0.2f;
     public bool left = true;
     public bool right = true;
     public bool up = true;
@@ -15,6 +19,7 @@ public class PlayerMovementLV2 : MonoBehaviour {
     public Transform bulletExit2;
     Vector2 ScreenBounds;
     Vector2 PlayerBounds;
+    
     // Use this for initialization
     void Awake()
     {
@@ -48,10 +53,20 @@ public class PlayerMovementLV2 : MonoBehaviour {
     }
     void Shoot()
     {
+        switch (shoot) {
 
-        fireRate = 0.1f;
-        Instantiate(bullet, new Vector3(bulletExit1.position.x, bulletExit1.position.y, 0), Quaternion.identity);
-        Instantiate(bullet, new Vector3(bulletExit2.position.x, bulletExit2.position.y, 0), Quaternion.identity);
+            case global::Shoot.Basic:
+                fireRate = 0.2f;
+                Instantiate(bullet, new Vector3(this.transform.position.x, bulletExit1.position.y + (PlayerBounds.y/2), 0), Quaternion.identity);
+                break;
+
+            case global::Shoot.Double:
+                fireRate = 0.2f;
+                Instantiate(bullet, new Vector3(bulletExit1.position.x, bulletExit1.position.y, 0), Quaternion.identity);
+                Instantiate(bullet, new Vector3(bulletExit2.position.x, bulletExit2.position.y, 0), Quaternion.identity);
+                break;
+        }
+        
 
     }
     void MoveBounds()
