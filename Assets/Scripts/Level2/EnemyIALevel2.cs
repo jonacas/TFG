@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyIALevel2 : MonoBehaviour {
 
-
+    MoveOnPath moveOnPath;
     GameObject player;
     public GameObject bullet;
     public GameObject Padre;
@@ -14,6 +14,7 @@ public class EnemyIALevel2 : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        moveOnPath = this.gameObject.GetComponent<MoveOnPath>();
         player = PlayerMovementLV2.currentInstance.gameObject;
         
 	}
@@ -36,8 +37,16 @@ public class EnemyIALevel2 : MonoBehaviour {
 
     void Shoot() {
 
-        shootDealay = 2.5f;
-        Instantiate(bullet, transform.position,transform.rotation);
+        if (moveOnPath.currentWayPoint >= moveOnPath.PathToFollow.pathPoints.Count -1 ) {
+
+            shootDealay = 2.5f;
+            Instantiate(bullet, transform.position, transform.rotation);
+
+
+        }
+
+
+        
         
         
 
