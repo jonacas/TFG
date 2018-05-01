@@ -37,7 +37,7 @@ public class EnemyIALevel2 : MonoBehaviour {
 
     void Shoot() {
 
-        if (moveOnPath.currentWayPoint >= moveOnPath.PathToFollow.pathPoints.Count -1 ) {
+        if (moveOnPath.currentWayPoint <= moveOnPath.PathToFollow.pathPoints.Count -1 ) {
 
             shootDealay = 2.5f;
             Instantiate(bullet, transform.position, transform.rotation);
