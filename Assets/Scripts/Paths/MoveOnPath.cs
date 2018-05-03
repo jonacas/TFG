@@ -12,6 +12,7 @@ public class MoveOnPath : MonoBehaviour {
     public float rotationSpeed = 5;
     public float timeStop = 0f;
     public int wayPointStop = 0;
+    public float stopRotation = 90;
     bool stop = false;
     public GameObject Padre;
 
@@ -63,11 +64,10 @@ public class MoveOnPath : MonoBehaviour {
         if (stop && this.transform.position == PathToFollow.pathPoints[currentWayPoint].position) {
             //transform.LookAt(PlayerMovementLV2.currentInstance.transform.position);
             //transform.rotation = new Quaternion(0, 0, -90, 0);
-            transform.eulerAngles = new Vector3(0,0,-90);
+            transform.eulerAngles = new Vector3(0,0,-stopRotation);
             
 
         }
-
         if (distance <= reachDistance && !stop)
         {
 
@@ -80,15 +80,5 @@ public class MoveOnPath : MonoBehaviour {
             Destroy(Padre, 1);
 
         }
-
-
-
     }
-
-
-
-
-
-
-
 }
