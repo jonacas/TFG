@@ -20,6 +20,19 @@ public class BulletLv3 : MonoBehaviour {
         if (this.gameObject.name.Contains("Clone"))
         {
             transform.Translate(Vector3.down * speed * Time.deltaTime);
+            Visible();
         }
+
 	}
+
+    void Visible() {
+
+        Vector3 screenPoint = Camera.main.WorldToViewportPoint(this.transform.position);
+        print(screenPoint);
+        if ((screenPoint.x < 0 || screenPoint.x > 1) || (screenPoint.y < 0 || screenPoint.y > 1))
+        {
+
+            Destroy(this.gameObject);
+        }
+    }
 }
