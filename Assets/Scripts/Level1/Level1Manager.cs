@@ -10,6 +10,7 @@ public class Level1Manager : MonoBehaviour {
     public GameObject enemy;
     public GameObject enemy2;
     public GameObject player;
+    public GameObject[] arrayLifes = new GameObject[3];
     public bool death = false;
     GameObject[,] enemies = new GameObject[11, 5];
     int initPosX = -5;
@@ -23,6 +24,7 @@ public class Level1Manager : MonoBehaviour {
     float timerDeath = 1;
     bool gameOver = false;
     
+    
 
 	// Use this for initialization
 	void Awake () {
@@ -34,10 +36,9 @@ public class Level1Manager : MonoBehaviour {
 
                 if (col % 2 == 0) { enemies[row, col] = Instantiate(enemy, new Vector2(initPosX + enemyBounds.x * row + offset, initPosY - enemyBounds.y * col - offset), Quaternion.identity); }
                 else { enemies[row, col] = Instantiate(enemy2, new Vector2(initPosX + enemyBounds.x * row + offset, initPosY - enemyBounds.y * col - offset), Quaternion.identity); }
-                
-
             }
         }
+        
 	}
 
     void Update()
@@ -119,6 +120,7 @@ public class Level1Manager : MonoBehaviour {
                 death = false;
                 lifes--;
                 timerDeath = 1;
+                arrayLifes[lifes].SetActive(false);
             }
         }
         if (lifes == 0) {

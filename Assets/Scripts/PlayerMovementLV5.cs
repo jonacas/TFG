@@ -71,6 +71,7 @@ public class PlayerMovementLV5 : MonoBehaviour {
     {
 
         playerShip.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, x * rotationOffset);
+       
 
     }
 }
