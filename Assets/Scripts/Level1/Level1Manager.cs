@@ -9,6 +9,8 @@ public class Level1Manager : MonoBehaviour {
     public bool right = false;
     public GameObject enemy;
     public GameObject enemy2;
+    public GameObject player;
+    public bool death = false;
     GameObject[,] enemies = new GameObject[11, 5];
     int initPosX = -5;
     int initPosY = 7;
@@ -17,6 +19,9 @@ public class Level1Manager : MonoBehaviour {
     int[] actualCol= new int[11] { 4,4,4,4,4,4,4,4,4,4,4} ;
     float shootTimer = 1f;
     Vector2 enemyBounds;
+    int lifes = 3;
+    float timerDeath = 1;
+    bool gameOver = false;
     
 
 	// Use this for initialization
@@ -47,6 +52,7 @@ public class Level1Manager : MonoBehaviour {
             }
 
         }
+        Revive();
 
     }
 
@@ -99,5 +105,26 @@ public class Level1Manager : MonoBehaviour {
 
         enemies[row, actualCol[row]].GetComponent<EnemyMovement>().Shoot();
         return true;
+    }
+
+    void Revive() {
+
+        if (death && !gameOver) {
+
+            timerDeath = timerDeath - Time.deltaTime;
+
+            if (timerDeath <= 0) {
+
+                Instantiate(player, Vector3.zero, Quaternion.identity);
+                death = false;
+                lifes--;
+                timerDeath = 1;
+            }
+        }
+        if (lifes == 0) {
+
+            gameOver = true;
+
+        }
     }
 }

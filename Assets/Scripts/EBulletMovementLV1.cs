@@ -34,7 +34,9 @@ public class EBulletMovementLV1 : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Cover" )
         {
-
+            if (collision.gameObject.tag == "Player") {
+                Level1Manager.currentInstance.death = true;
+            }
             Destroy(collision.gameObject);
             Destroy(this.gameObject);
 

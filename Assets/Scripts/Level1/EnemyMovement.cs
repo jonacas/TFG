@@ -35,7 +35,6 @@ public class EnemyMovement : MonoBehaviour {
 
     void MoveBounds()
     {
-        print(this.transform.position.x);
         if (this.transform.position.x <= (-(ScreenBounds.x) + EnemyBounds.x / 2)) 
         {
             
