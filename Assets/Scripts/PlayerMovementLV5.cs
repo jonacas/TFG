@@ -15,6 +15,9 @@ public class PlayerMovementLV5 : MonoBehaviour {
     public GameObject playerShip;
     Rigidbody rbd;
     int rotationAxis = 0;
+    bool barrelRolling = false;
+    Quaternion auxiliar;
+
 	// Use this for initialization
 	void Awake () {
 
@@ -27,13 +30,16 @@ public class PlayerMovementLV5 : MonoBehaviour {
 
         fireRate = fireRate - Time.deltaTime;
         ReadInputs();
-        
+        //BarrellRoll();
+       
 
     }
 
+
+
     void ReadInputs() {
 
-        if (Input.GetAxis("Horizontal") > 0.5f && rotationAxis <= 0)
+        if (Input.GetAxis("Horizontal") > 0.5f && (playerShip.transform.eulerAngles.z > 330 || playerShip.transform.eulerAngles.z < 30))
         {
 
             rotationAxis = 1;
@@ -41,14 +47,14 @@ public class PlayerMovementLV5 : MonoBehaviour {
 
 
         }
-        else if (Input.GetAxis("Horizontal") < -0.5f && rotationAxis >= 0)
+        else if (Input.GetAxis("Horizontal") < -0.5f && (playerShip.transform.eulerAngles.z < 30|| playerShip.transform.eulerAngles.z > 330))
         {
 
             rotationAxis = -1;
             Rotation(rotationAxis);
 
         }
-        else if(Input.GetAxis("Horizontal") > -0.15f && Input.GetAxis("Horizontal") < 0.15f)
+        else if(Input.GetAxis("Horizontal") > -0.3f && Input.GetAxis("Horizontal") < 0.3f)
         {
             rotationAxis = 0;
             Rotation(rotationAxis);
@@ -69,9 +75,43 @@ public class PlayerMovementLV5 : MonoBehaviour {
     }
     void Rotation(float x)
     {
+        if (x == 0) {
 
-        playerShip.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, x * rotationOffset);
+            if (playerShip.transform.eulerAngles.z >= 300 && playerShip.transform.eulerAngles.z != 0 ) {
+
+                playerShip.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, playerShip.transform.eulerAngles.z - rotationOffset * Time.deltaTime);
+            }
+            else if (playerShip.transform.eulerAngles.z <= 60 && playerShip.transform.eulerAngles.z != 0)
+            {
+                playerShip.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, playerShip.transform.eulerAngles.z + rotationOffset * Time.deltaTime);
+            }
+        }
+        playerShip.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, playerShip.transform.eulerAngles.z + x * rotationOffset * Time.deltaTime);
        
+
+    }
+
+    void BarrellRoll() {
+
+        //En proceso de funcionar
+        if (Input.GetKeyDown(KeyCode.Z) && !barrelRolling)
+        {
+            auxiliar = this.transform.rotation;
+            barrelRolling = true;
+            auxiliar.y = auxiliar.y + 180;
+            
+        }
+        else if(barrelRolling){
+
+            this.transform.Rotate(Vector3.up * 10 * Time.deltaTime);
+            if (this.transform.rotation.y == auxiliar.y) {
+
+                barrelRolling = false;
+
+            }
+
+        }
+
 
     }
 }

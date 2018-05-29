@@ -371,6 +371,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1931211869096908, guid: 62a586a27fa963f46bd775056b4d988a,
         type: 2}
+    - target: {fileID: 114054536269541268, guid: c377c5b920781dd4e895492fecd27354,
+        type: 2}
+      propertyPath: rotationOffset
+      value: -100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c377c5b920781dd4e895492fecd27354, type: 2}
   m_IsPrefabParent: 0
