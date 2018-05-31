@@ -15,11 +15,13 @@ public class PlayerMovementLV5 : MonoBehaviour {
     public GameObject playerShip;
     Rigidbody rbd;
     int rotationAxis = 0;
+    bool lateralRolling = false;
     bool barrelRolling = false;
-    Quaternion auxiliar;
+    float lateralRotationCounter = 180;
+    float barrelRotationCounter = 360;
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake () {
 
         rbd = this.gameObject.GetComponent<Rigidbody>();
 
@@ -30,8 +32,14 @@ public class PlayerMovementLV5 : MonoBehaviour {
 
        
         fireRate = fireRate - Time.deltaTime;
-        ReadInputs();
-        //BarrellRoll();
+        if (!barrelRolling && !lateralRolling) {
+
+            ReadInputs();
+
+        }
+       
+        LateralRoll();
+        BarellRoll();
        
 
     }
@@ -63,14 +71,11 @@ public class PlayerMovementLV5 : MonoBehaviour {
         }
         if ((this.transform.eulerAngles.x > 270 || this.transform.eulerAngles.x < 90) && Input.GetAxis("Vertical") > 0.3)
         {
-
             this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(turnSpeed * Time.deltaTime * -Input.GetAxis("Vertical"), Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
         }
         else if ((this.transform.eulerAngles.x > 260 || this.transform.eulerAngles.x < 80) && Input.GetAxis("Vertical") < -0.3)
         {
-
             this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(turnSpeed * Time.deltaTime * -Input.GetAxis("Vertical"), Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
-
         }
         else {
 
@@ -134,27 +139,48 @@ public class PlayerMovementLV5 : MonoBehaviour {
        
 
     }
-    void BarrellRoll() {
+    void LateralRoll() {
 
         //En proceso de funcionar
-        if (Input.GetKeyDown(KeyCode.Z) && !barrelRolling)
+        if (Input.GetKeyDown(KeyCode.Z) && !lateralRolling && !barrelRolling)
         {
-            auxiliar = this.transform.rotation;
-            barrelRolling = true;
-            auxiliar.y = auxiliar.y + 180;
+            lateralRolling = true;
+            lateralRotationCounter = 180;
             
         }
-        else if(barrelRolling){
+        else if(lateralRolling){
 
-            this.transform.Rotate(Vector3.up * 10 * Time.deltaTime);
-            if (this.transform.rotation.y == auxiliar.y) {
+            this.transform.Rotate(Vector3.up * 300 * Time.deltaTime);
+            lateralRotationCounter -= Vector3.up.y * 300 * Time.deltaTime;
+            if (lateralRotationCounter <= 0) {
+
+                lateralRolling = false;
+
+            }
+        }
+    }
+    void BarellRoll()
+    {
+
+        //En proceso de funcionar
+        if (Input.GetKeyDown(KeyCode.X) && !barrelRolling && !lateralRolling)
+        {
+
+            barrelRolling = true;
+            barrelRotationCounter = 360;
+
+        }
+        else if (barrelRolling)
+        {
+
+            this.transform.Rotate(Vector3.left * 200 * Time.deltaTime);
+            barrelRotationCounter -= Vector3.forward.z * 200 * Time.deltaTime;
+            if (barrelRotationCounter <= 0)
+            {
 
                 barrelRolling = false;
 
             }
-
         }
-
-
     }
 }
