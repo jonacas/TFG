@@ -28,6 +28,7 @@ public class PlayerMovementLV5 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+       
         fireRate = fireRate - Time.deltaTime;
         ReadInputs();
         //BarrellRoll();
@@ -47,21 +48,36 @@ public class PlayerMovementLV5 : MonoBehaviour {
 
 
         }
-        else if (Input.GetAxis("Horizontal") < -0.5f && (playerShip.transform.eulerAngles.z < 30|| playerShip.transform.eulerAngles.z > 330))
+        else if (Input.GetAxis("Horizontal") < -0.5f && (playerShip.transform.eulerAngles.z < 30 || playerShip.transform.eulerAngles.z > 330))
         {
 
             rotationAxis = -1;
             Rotation(rotationAxis);
 
         }
-        else if(Input.GetAxis("Horizontal") > -0.3f && Input.GetAxis("Horizontal") < 0.3f)
+        else if (Input.GetAxis("Horizontal") > -0.3f && Input.GetAxis("Horizontal") < 0.3f)
         {
             rotationAxis = 0;
             Rotation(rotationAxis);
 
         }
+        if ((this.transform.eulerAngles.x > 270 || this.transform.eulerAngles.x < 90) && Input.GetAxis("Vertical") > 0.3)
+        {
+
+            this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(turnSpeed * Time.deltaTime * -Input.GetAxis("Vertical"), Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
+        }
+        else if ((this.transform.eulerAngles.x > 260 || this.transform.eulerAngles.x < 80) && Input.GetAxis("Vertical") < -0.3)
+        {
+
+            this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(turnSpeed * Time.deltaTime * -Input.GetAxis("Vertical"), Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
+
+        }
+        else {
+
+            this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(0, Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
+
+        }
         this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed));
-        this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(turnSpeed * Time.deltaTime * -Input.GetAxis("Vertical"), Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
         if (Input.GetAxis("Fire1") != 0 && (fireRate < 0)) { Shoot(); }
 
     }
@@ -75,22 +91,49 @@ public class PlayerMovementLV5 : MonoBehaviour {
     }
     void Rotation(float x)
     {
-        if (x == 0) {
+        if (x == 0)
+        {
 
-            if (playerShip.transform.eulerAngles.z >= 300 && playerShip.transform.eulerAngles.z != 0 ) {
+            if (playerShip.transform.eulerAngles.z >= 300 && playerShip.transform.eulerAngles.z != 0)
+            {
 
-                playerShip.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, playerShip.transform.eulerAngles.z - rotationOffset * Time.deltaTime);
+
+                if (playerShip.transform.eulerAngles.z > 355)
+                {
+
+                    playerShip.transform.eulerAngles = new Vector3(playerShip.transform.eulerAngles.x, this.transform.eulerAngles.y, 0);
+
+                }
+                else {
+
+                    playerShip.transform.eulerAngles = new Vector3(playerShip.transform.eulerAngles.x, this.transform.eulerAngles.y, playerShip.transform.eulerAngles.z - rotationOffset * Time.deltaTime);
+
+                }
+
             }
             else if (playerShip.transform.eulerAngles.z <= 60 && playerShip.transform.eulerAngles.z != 0)
             {
-                playerShip.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, playerShip.transform.eulerAngles.z + rotationOffset * Time.deltaTime);
+                if (playerShip.transform.eulerAngles.z < 5)
+                {
+
+                    playerShip.transform.eulerAngles = new Vector3(playerShip.transform.eulerAngles.x, this.transform.eulerAngles.y, 0);
+
+                }
+                else {
+
+                    playerShip.transform.eulerAngles = new Vector3(playerShip.transform.eulerAngles.x, this.transform.eulerAngles.y, playerShip.transform.eulerAngles.z + rotationOffset * Time.deltaTime);
+
+
+                }
             }
         }
-        playerShip.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, playerShip.transform.eulerAngles.z + x * rotationOffset * Time.deltaTime);
+        else
+        {
+            playerShip.transform.eulerAngles = new Vector3(playerShip.transform.eulerAngles.x, this.transform.eulerAngles.y, playerShip.transform.eulerAngles.z + x * rotationOffset * Time.deltaTime);
+        }  
        
 
     }
-
     void BarrellRoll() {
 
         //En proceso de funcionar
