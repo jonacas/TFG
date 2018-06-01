@@ -82,7 +82,18 @@ public class PlayerMovementLV5 : MonoBehaviour {
             this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(0, Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
 
         }
-        this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed));
+        if (Input.GetAxis("Triggers") < -0.5f)
+        {
+            this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed * 2));
+            print("Turbo");
+        }
+        else if (Input.GetAxis("Triggers") > 0.5)
+        {
+            this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed / 2));
+        }
+        else {
+            this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed));
+        }
         if (Input.GetAxis("Fire1") != 0 && (fireRate < 0)) { Shoot(); }
 
     }
