@@ -206,6 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRate: 0.2
   speed: 8
+  rotationSpeed: -50
   bullet1: {fileID: 1931211869096908, guid: 62a586a27fa963f46bd775056b4d988a, type: 2}
   bullet2: {fileID: 1931211869096908, guid: 62a586a27fa963f46bd775056b4d988a, type: 2}
   bulletExit1: {fileID: 25103586}

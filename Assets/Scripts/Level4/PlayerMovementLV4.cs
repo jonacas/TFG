@@ -6,6 +6,7 @@ public class PlayerMovementLV4 : MonoBehaviour {
 
     public float fireRate = 0.2f;
     public float speed = 5f;
+    public float rotationSpeed = -3f;
     public GameObject bullet1;
     public GameObject bullet2;
     public Transform bulletExit1;
@@ -47,6 +48,18 @@ public class PlayerMovementLV4 : MonoBehaviour {
         if (up && m_up > 0) { this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0); }
         else if (down && m_up < 0) { this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0); }
         CameraBoundsMove(m_move, m_up);
+        if (m_move > 0.5f && (this.transform.eulerAngles.z > 330 || this.transform.eulerAngles.z < 30))
+        {
+            Rotation(m_move);
+        }
+        else if (m_move < -0.5f && (this.transform.eulerAngles.z < 30 || this.transform.eulerAngles.z > 330))
+        {
+            Rotation(m_move);
+        }
+        else if (m_move > -0.3f && m_move < 0.3f)
+        {
+            Rotation(0);
+        }
         if (Input.GetAxis("Fire1") != 0 && (fireRate < 0)) { Shoot(); }
 
     }
@@ -122,4 +135,54 @@ public class PlayerMovementLV4 : MonoBehaviour {
 
     }
 
+    void Rotation(float horizontal) {
+
+        if (horizontal == 0)
+        {
+
+            if (this.transform.eulerAngles.z >= 300 && this.transform.eulerAngles.z != 0)
+            {
+
+
+                if (this.transform.eulerAngles.z > 355)
+                {
+
+                    this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, 0);
+
+                }
+                else
+                {
+
+                    this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z - rotationSpeed * Time.deltaTime);
+
+                }
+
+            }
+            else if (this.transform.eulerAngles.z <= 60 && this.transform.eulerAngles.z != 0)
+            {
+                if (this.transform.eulerAngles.z < 5)
+                {
+
+                    this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, 0);
+
+                }
+                else
+                {
+
+                    this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z + rotationSpeed * Time.deltaTime);
+
+
+                }
+            }
+        }
+        else
+        {
+            this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z + horizontal * rotationSpeed * Time.deltaTime);
+        }
+
+
+    }
+
+
 }
+
