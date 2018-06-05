@@ -17,7 +17,6 @@ public class EnemyLV5 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Move();
-        //Turn();
         Detection();
 	}
 

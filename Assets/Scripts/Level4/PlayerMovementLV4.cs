@@ -14,16 +14,18 @@ public class PlayerMovementLV4 : MonoBehaviour {
     bool right = true;
     bool up = true;
     bool down = true;
+    float counterUp;
+    float counterDown;
+    float counterLeft;
+    float counterRigth;
+    int limit = 5;
     Vector3 ScreenBounds;
     Vector2 PlayerBounds;
 
     // Use this for initialization
     void Awake()
     {
-
-        ScreenBounds = new Vector2(10f, 5.5f);
         PlayerBounds = this.GetComponent<MeshRenderer>().bounds.size;
-
     }
 
     // Update is called once per frame
@@ -44,6 +46,7 @@ public class PlayerMovementLV4 : MonoBehaviour {
         else if (left && m_move < 0) { this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move,0, 0); }
         if (up && m_up > 0) { this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0); }
         else if (down && m_up < 0) { this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0); }
+        CameraBoundsMove(m_move, m_up);
         if (Input.GetAxis("Fire1") != 0 && (fireRate < 0)) { Shoot(); }
 
     }
@@ -62,34 +65,61 @@ public class PlayerMovementLV4 : MonoBehaviour {
         right = true;
         up = true;
         down = true;
-        if (this.transform.position.x <= (-(ScreenBounds.x) + PlayerBounds.x / 2))
+        Vector3 PlayerScreenPoint = Camera.main.WorldToViewportPoint(this.transform.position);
+
+        if (PlayerScreenPoint.x <= 0.15)
         {
             left = false;
         }
-        else
-        {
-            if (this.transform.position.x >= ((ScreenBounds.x) - PlayerBounds.x / 2))
-            {
-                right = false;
-            }
+        else if (PlayerScreenPoint.x >= 0.85) {
+
+            right = false;
         }
-        if (this.transform.position.y <= (-(ScreenBounds.y) + PlayerBounds.y / 2))
+        if (PlayerScreenPoint.y <= 0.15)
         {
 
             down = false;
 
         }
-        else
+        else if(PlayerScreenPoint.y >= 0.85)
         {
 
-            if (this.transform.position.y >= ((ScreenBounds.y) - PlayerBounds.y / 2))
-            {
-
-                up = false;
-
-            }
+            up = false;
 
         }
+    }
+    void CameraBoundsMove(float horizontal, float vertical) {
+
+        if (!left && counterLeft < limit && horizontal < 0) {
+
+            counterLeft += -(speed * Time.deltaTime * horizontal);
+            counterRigth += speed * Time.deltaTime * horizontal;
+            Camera.main.transform.position = Camera.main.transform.position + new Vector3(speed * Time.deltaTime * horizontal, 0, 0);
+
+        }
+        else if (!right && counterRigth < limit && horizontal > 0) {
+
+            counterLeft += -(speed * Time.deltaTime * horizontal);
+            counterRigth += speed * Time.deltaTime * horizontal;
+            Camera.main.transform.position = Camera.main.transform.position + new Vector3(speed * Time.deltaTime * horizontal, 0, 0);
+
+        }
+        if (!down && counterDown < limit && vertical < 0)
+        {
+
+            counterDown += -(speed * Time.deltaTime * vertical);
+            counterUp += speed * Time.deltaTime * vertical;
+            Camera.main.transform.position = Camera.main.transform.position + new Vector3(0, speed * Time.deltaTime * vertical, 0);
+
+        }
+        else if (!up && counterUp < limit & vertical > 0) {
+
+            counterDown += -(speed * Time.deltaTime * vertical);
+            counterUp += speed * Time.deltaTime * vertical;
+            Camera.main.transform.position = Camera.main.transform.position + new Vector3(0, speed * Time.deltaTime * vertical, 0);
+
+        }
+
     }
 
 }
