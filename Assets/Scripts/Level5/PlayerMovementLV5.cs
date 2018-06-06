@@ -14,11 +14,16 @@ public class PlayerMovementLV5 : MonoBehaviour {
     public float rotationOffset = -25f;
     public GameObject playerShip;
     Rigidbody rbd;
-    int rotationAxis = 0;
+    int rotationAxisHorizontal = 0;
+    int rotationAxisVertical = 0;
     bool lateralRolling = false;
     bool barrelRolling = false;
+    float counterRotationUp = 0;
+    float counterRotationDown = 0;
+    int limitRotationVertical = 15;
     float lateralRotationCounter = 180;
     float barrelRotationCounter = 360;
+
 
     // Use this for initialization
     void Awake () {
@@ -30,7 +35,6 @@ public class PlayerMovementLV5 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-       
         fireRate = fireRate - Time.deltaTime;
         if (!barrelRolling && !lateralRolling) {
 
@@ -47,28 +51,51 @@ public class PlayerMovementLV5 : MonoBehaviour {
 
 
     void ReadInputs() {
-
+        //Giro Horizontal
         if (Input.GetAxis("Horizontal") > 0.5f && (playerShip.transform.eulerAngles.z > 330 || playerShip.transform.eulerAngles.z < 30))
         {
 
-            rotationAxis = 1;
-            Rotation(rotationAxis);
+            rotationAxisHorizontal = 1;
+            RotationHorizontal(rotationAxisHorizontal);
 
 
         }
         else if (Input.GetAxis("Horizontal") < -0.5f && (playerShip.transform.eulerAngles.z < 30 || playerShip.transform.eulerAngles.z > 330))
         {
 
-            rotationAxis = -1;
-            Rotation(rotationAxis);
+            rotationAxisHorizontal = -1;
+            RotationHorizontal(rotationAxisHorizontal);
 
         }
         else if (Input.GetAxis("Horizontal") > -0.3f && Input.GetAxis("Horizontal") < 0.3f)
         {
-            rotationAxis = 0;
-            Rotation(rotationAxis);
+            rotationAxisHorizontal = 0;
+            RotationHorizontal(rotationAxisHorizontal);
 
         }
+        //Giro vertical
+        if (Input.GetAxis("Vertical") > 0.5f && (playerShip.transform.eulerAngles.x > 330 || playerShip.transform.eulerAngles.x < 30))
+        {
+
+            rotationAxisVertical = 1;
+            RotationVertical(rotationAxisVertical);
+
+
+        }
+        else if (Input.GetAxis("Vertical") < -0.5f && (playerShip.transform.eulerAngles.x < 30 || playerShip.transform.eulerAngles.x > 330))
+        {
+
+            rotationAxisVertical = -1;
+            RotationVertical(rotationAxisVertical);
+
+        }
+        else if (Input.GetAxis("Vertical") > -0.3f && Input.GetAxis("Vertical") < 0.3f)
+        {
+            rotationAxisVertical = 0;
+            RotationVertical(rotationAxisVertical);
+
+        }
+        //Limite del movimiento vertical
         if ((this.transform.eulerAngles.x > 270 || this.transform.eulerAngles.x < 90) && Input.GetAxis("Vertical") > 0.3)
         {
             this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(turnSpeed * Time.deltaTime * -Input.GetAxis("Vertical"), Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
@@ -82,6 +109,7 @@ public class PlayerMovementLV5 : MonoBehaviour {
             this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(0, Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
 
         }
+        //Cambios de velocidad
         if (Input.GetAxis("Triggers") < -0.5f)
         {
             this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed * 2));
@@ -105,7 +133,7 @@ public class PlayerMovementLV5 : MonoBehaviour {
         Instantiate(bullet2, bulletExit2.position, bulletExit2.rotation);
 
     }
-    void Rotation(float x)
+    void RotationHorizontal(float x)
     {
         if (x == 0)
         {
@@ -147,12 +175,74 @@ public class PlayerMovementLV5 : MonoBehaviour {
         {
             playerShip.transform.eulerAngles = new Vector3(playerShip.transform.eulerAngles.x, this.transform.eulerAngles.y, playerShip.transform.eulerAngles.z + x * rotationOffset * Time.deltaTime);
         }  
-       
+    }
+    void RotationVertical(float y) {
+
+        if (y == 1)
+        {
+
+            if (counterRotationUp < limitRotationVertical)
+            {
+
+                counterRotationUp += -(y * rotationOffset * Time.deltaTime);
+                counterRotationDown += y * rotationOffset * Time.deltaTime;
+                playerShip.transform.eulerAngles = new Vector3(playerShip.transform.eulerAngles.x + y * rotationOffset * Time.deltaTime, playerShip.transform.eulerAngles.y, playerShip.transform.eulerAngles.z);
+            }
+
+        }
+        else if (y == -1)
+        {
+
+            if (counterRotationDown < limitRotationVertical)
+            {
+
+                counterRotationUp += -(y * rotationOffset * Time.deltaTime);
+                counterRotationDown += y * rotationOffset * Time.deltaTime;
+                playerShip.transform.eulerAngles = new Vector3(playerShip.transform.eulerAngles.x + y * rotationOffset * Time.deltaTime, playerShip.transform.eulerAngles.y, playerShip.transform.eulerAngles.z);
+            }
+        }
+        else {
+
+            if (counterRotationDown < counterRotationUp && counterRotationUp > 0) {
+
+                counterRotationUp += rotationOffset * Time.deltaTime;
+                counterRotationDown += -(rotationOffset * Time.deltaTime);
+                playerShip.transform.eulerAngles = new Vector3(playerShip.transform.eulerAngles.x + -(rotationOffset * Time.deltaTime), playerShip.transform.eulerAngles.y, playerShip.transform.eulerAngles.z);
+                if (counterRotationUp < 0.15)
+                {
+                    playerShip.transform.eulerAngles = new Vector3(playerShip.transform.eulerAngles.x - counterRotationUp, playerShip.transform.eulerAngles.y, playerShip.transform.eulerAngles.z);
+                    counterRotationUp = 0;
+                    counterRotationDown = 0;
+                    
+
+
+                }
+            }
+            else if (counterRotationDown > counterRotationUp && counterRotationDown >0) {
+
+                counterRotationUp += -(rotationOffset * Time.deltaTime);
+                counterRotationDown += rotationOffset * Time.deltaTime;
+                playerShip.transform.eulerAngles = new Vector3(playerShip.transform.eulerAngles.x + rotationOffset * Time.deltaTime, playerShip.transform.eulerAngles.y, playerShip.transform.eulerAngles.z);
+                if (counterRotationDown < 0.15) {
+
+                    playerShip.transform.eulerAngles = new Vector3(playerShip.transform.eulerAngles.x - counterRotationDown, playerShip.transform.eulerAngles.y, playerShip.transform.eulerAngles.z);
+                    counterRotationUp = 0;
+                    counterRotationDown = 0;
+
+
+                }
+
+            }
+
+
+
+
+        }
+
 
     }
     void LateralRoll() {
 
-        //En proceso de funcionar
         if (Input.GetKeyDown(KeyCode.Z) && !lateralRolling && !barrelRolling)
         {
             lateralRolling = true;
@@ -194,4 +284,5 @@ public class PlayerMovementLV5 : MonoBehaviour {
             }
         }
     }
+
 }
