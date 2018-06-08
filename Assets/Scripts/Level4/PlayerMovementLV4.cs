@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovementLV4 : MonoBehaviour {
 
+    public static PlayerMovementLV4 currentInstance;
     public float fireRate = 0.2f;
     public float speed = 5f;
     public float rotationSpeed = -3f;
@@ -20,13 +21,13 @@ public class PlayerMovementLV4 : MonoBehaviour {
     float counterLeft;
     float counterRigth;
     int limit = 5;
-    Vector3 ScreenBounds;
-    Vector2 PlayerBounds;
+
 
     // Use this for initialization
     void Awake()
     {
-        PlayerBounds = this.GetComponent<MeshRenderer>().bounds.size;
+        currentInstance = this;
+
     }
 
     // Update is called once per frame

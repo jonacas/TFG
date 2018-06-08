@@ -45,11 +45,6 @@ public class EnemyIALevel2 : MonoBehaviour {
 
         }
 
-
-        
-        
-        
-
     }
 
     public void Damage() {
