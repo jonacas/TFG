@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 75
+  damage: 5
 --- !u!135 &135488258993998196
 SphereCollider:
   m_ObjectHideFlags: 1

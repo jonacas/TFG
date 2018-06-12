@@ -6,6 +6,7 @@ public class EBullet3DLevel4 : MonoBehaviour {
 
     public float speed = 1;
     float timer = 2f;
+    public float damage = 5;
     Vector3 playerPosition;
     Vector3 pathToPlayer;
 
@@ -33,18 +34,17 @@ public class EBullet3DLevel4 : MonoBehaviour {
     {
         
         this.transform.Translate(Vector3.forward * speed * Time.fixedDeltaTime);
-        //this.GetComponent<Rigidbody>().velocity = Vector3.back * speed * Time.fixedDeltaTime;
+        
     }
 
-    /*void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Player")
         {
-
-            collision.gameObject.GetComponent<EnemyIALv4>().Damage();
+            collision.gameObject.GetComponent<PlayerLv4Manager>().Damage(damage);
             Destroy(this.gameObject);
 
         }
-    }*/
+    }
 }
