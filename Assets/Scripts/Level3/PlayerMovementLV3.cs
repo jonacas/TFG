@@ -42,7 +42,6 @@ public class PlayerMovementLV3 : MonoBehaviour {
 
     void Inputs()
     {
-
         float m_move = Input.GetAxis("Horizontal");
         float m_up = Input.GetAxis("Vertical");
 
