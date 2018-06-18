@@ -46,7 +46,7 @@ public class EBulletLV2 : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-
+            Level2M.currentInstance.death = true;
             Destroy(collision.gameObject);
             Destroy(this.gameObject);
 

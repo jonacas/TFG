@@ -34,4 +34,17 @@ public class BulletLv3 : MonoBehaviour {
             Destroy(this.gameObject);
         }
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player") {
+
+            LV3Manager.currentInstance.death = true;
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
+
+        }
+
+        
+    }
 }

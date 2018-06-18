@@ -312,7 +312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7249c29faf54324faae9e57deda289c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   bullet: {fileID: 1962415526334790, guid: ff95291058b386f4d90ba2a0891e53e7, type: 2}
   Padre: {fileID: 1379692353895624}
   attackDistance: 5
@@ -334,6 +333,7 @@ MonoBehaviour:
   rotationSpeed: 5
   timeStop: 5
   wayPointStop: 0
+  stopRotation: 90
   Padre: {fileID: 1379692353895624}
 --- !u!114 &114673854595516972
 MonoBehaviour:

@@ -44,10 +44,26 @@ public class PlayerMovementLV4 : MonoBehaviour {
         float m_move = Input.GetAxis("Horizontal");
         float m_up = Input.GetAxis("Vertical");
 
-        if (right && m_move > 0) { this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move,0, 0); }
-        else if (left && m_move < 0) { this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move,0, 0); }
-        if (up && m_up > 0) { this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0); }
-        else if (down && m_up < 0) { this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0); }
+        if (right && m_move > 0) {
+
+            this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move,0, 0);
+
+        }
+        else if (left && m_move < 0) {
+
+            this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move,0, 0);
+
+        }
+        if (up && m_up > 0) {
+
+            this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0);
+
+        }
+        else if (down && m_up < 0) {
+
+            this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0);
+
+        }
         CameraBoundsMove(m_move, m_up);
         if (m_move > 0.5f && (this.transform.eulerAngles.z > 330 || this.transform.eulerAngles.z < 30))
         {

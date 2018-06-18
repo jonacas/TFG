@@ -65,6 +65,8 @@ public class PlayerMovementLV2 : MonoBehaviour {
                 Instantiate(bullet, new Vector3(bulletExit1.position.x, bulletExit1.position.y, 0), Quaternion.identity);
                 Instantiate(bullet, new Vector3(bulletExit2.position.x, bulletExit2.position.y, 0), Quaternion.identity);
                 break;
+            case global::Shoot.Special:
+                break;
         }
         
 

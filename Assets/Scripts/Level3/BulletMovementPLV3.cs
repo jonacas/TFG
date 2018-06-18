@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletMovementPLV3 : MonoBehaviour {
 
+    public int damage = 1;
     float speed = 10;
     Vector3 ScreenBounds;
     // Use this for initialization
@@ -29,7 +30,7 @@ public class BulletMovementPLV3 : MonoBehaviour {
         if (collision.gameObject.tag == "Enemy")
         {
 
-            Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<LV3EnemyIA>().Damage(damage);
             Destroy(this.gameObject);
 
         }

@@ -17,12 +17,11 @@ public class MoveOnPath : MonoBehaviour {
     public GameObject Padre;
 
 
-    Vector3 lastPosition;
     Vector3 currentPosition;
 	// Use this for initialization
 	void Start () {
 
-        lastPosition = transform.position;
+        currentWayPoint = 0;
     
 		
 	}
@@ -57,13 +56,10 @@ public class MoveOnPath : MonoBehaviour {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 
         var rotation = Quaternion.LookRotation(PathToFollow.pathPoints[currentWayPoint].position);
-        //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         transform.LookAt(PathToFollow.pathPoints[currentWayPoint].position);
         transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, 0, 0);
 
         if (stop && this.transform.position == PathToFollow.pathPoints[currentWayPoint].position) {
-            //transform.LookAt(PlayerMovementLV2.currentInstance.transform.position);
-            //transform.rotation = new Quaternion(0, 0, -90, 0);
             transform.eulerAngles = new Vector3(0,0,-stopRotation);
             
 
