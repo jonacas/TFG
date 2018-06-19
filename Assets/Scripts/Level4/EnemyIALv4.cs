@@ -35,4 +35,10 @@ public class EnemyIALv4 : MonoBehaviour {
         }
     }
 
+    public void Defeat() {
+
+        Destroy(Padre);
+
+    }
+
 }

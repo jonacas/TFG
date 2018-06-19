@@ -7,11 +7,12 @@ public class PlayerMovementLV3 : MonoBehaviour {
     public float speed = 3;
     public float fireRate = 0.1f;
     public float impulseForce = 2;
+    public float dashDistance;
     public float rotationOffset = -25f;
     public GameObject bullet;
+    public GameObject specialBullet;
     public Transform bulletExit1;
     public Transform bulletExit2;
-    public Camera m_camera;
     bool left = true;
     bool right = true;
     bool up = true;
@@ -42,6 +43,7 @@ public class PlayerMovementLV3 : MonoBehaviour {
 
     void Inputs()
     {
+        #region Movement
         float m_move = Input.GetAxis("Horizontal");
         float m_up = Input.GetAxis("Vertical");
 
@@ -70,21 +72,54 @@ public class PlayerMovementLV3 : MonoBehaviour {
         }
         if (up && m_up >= 0) { this.transform.position = this.transform.position + new Vector3(0, m_up * Time.deltaTime * speed, 0); }
         else if (down && m_up < 0) { this.transform.position = this.transform.position + new Vector3(0, m_up * Time.deltaTime * speed, 0); }
+        #endregion
 
+        #region Shoot
         if (Input.GetAxis("Fire1") != 0 && (fireRate < 0)) { Shoot(); }
 
+        if (Input.GetAxis("Fire2") != 0 && LV3Manager.currentInstance.specialShootBar.value == 4) {
+
+            SpecialShoot();
+
+
+        }
+
+        #endregion
+
+        #region Dash
         if (Input.GetAxis("Bumper1") != 0 && impulseRate <= 0) {
 
             this.transform.Translate(Vector3.right * impulseForce * Input.GetAxis("Bumper1"));
+
             impulseRate = 0.5f;
         }
+        #endregion
     }
+
+
     void Shoot()
     {
 
         fireRate = 0.1f;
         Instantiate(bullet, new Vector3(bulletExit1.position.x, bulletExit1.position.y, 0), Quaternion.identity);
         Instantiate(bullet, new Vector3(bulletExit2.position.x, bulletExit2.position.y, 0), Quaternion.identity);
+
+    }
+    void SpecialShoot() {
+
+        if (EnemySpecialShootManager.currentInstance.Enemies.Count <= 0) {
+
+            return;
+        }
+        LV3Manager.currentInstance.specialShootBar.value = 0;
+        foreach (Transform enemyTransform in EnemySpecialShootManager.currentInstance.Enemies) {
+
+           GameObject specialBulletObject = Instantiate(specialBullet, new Vector3((bulletExit1.position.x + bulletExit2.position.x) / 2, (bulletExit1.position.y + bulletExit2.position.y) / 2, 0), Quaternion.identity);
+
+            specialBulletObject.GetComponent<SpecialBulletLV3>().GoFor(enemyTransform);
+
+        }
+
 
     }
     void MoveBounds()

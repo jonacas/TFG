@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovementLV4 : MonoBehaviour {
 
@@ -10,8 +11,11 @@ public class PlayerMovementLV4 : MonoBehaviour {
     public float rotationSpeed = -3f;
     public GameObject bullet1;
     public GameObject bullet2;
+    public GameObject SpecialBullet;
+    public Transform bulletExitSpetial;
     public Transform bulletExit1;
     public Transform bulletExit2;
+    public Slider specialShootBar;
     bool left = true;
     bool right = true;
     bool up = true;
@@ -31,27 +35,27 @@ public class PlayerMovementLV4 : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update() {
 
         fireRate = fireRate - Time.deltaTime;
         ReadInputs();
         MoveBounds();
-
-	}
+    }
 
     void ReadInputs() {
 
+        #region Movement
         float m_move = Input.GetAxis("Horizontal");
         float m_up = Input.GetAxis("Vertical");
 
         if (right && m_move > 0) {
 
-            this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move,0, 0);
+            this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move, 0, 0);
 
         }
         else if (left && m_move < 0) {
 
-            this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move,0, 0);
+            this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move, 0, 0);
 
         }
         if (up && m_up > 0) {
@@ -77,8 +81,35 @@ public class PlayerMovementLV4 : MonoBehaviour {
         {
             Rotation(0);
         }
+        #endregion
+        #region Shoot
         if (Input.GetAxis("Fire1") != 0 && (fireRate < 0)) { Shoot(); }
 
+        if (Input.GetAxis("Fire2") != 0)
+        {
+
+            SpecialShootBarChargue();
+
+        }
+        else if (specialShootBar.value >= 1)
+        {
+            specialShootBar.value = 0;
+            if (EnemySpecialShootManager.currentInstance.Enemies.Count > 0) {
+
+                SpecialShoot();
+
+            }
+
+
+
+        }
+        else {
+
+            specialShootBar.value = 0;
+
+        }
+
+        #endregion
     }
     void Shoot()
     {
@@ -88,6 +119,34 @@ public class PlayerMovementLV4 : MonoBehaviour {
         Instantiate(bullet2, bulletExit2.position, bulletExit2.rotation);
 
     }
+    void SpecialShootBarChargue() {
+
+
+        specialShootBar.value = specialShootBar.value + Time.deltaTime;
+
+
+
+    }
+
+    void SpecialShoot() {
+
+
+        float MinDistance = Vector3.Distance(this.transform.position, EnemySpecialShootManager.currentInstance.Enemies[0].position);
+        Transform target = EnemySpecialShootManager.currentInstance.Enemies[0];
+
+        foreach (Transform enemy in EnemySpecialShootManager.currentInstance.Enemies) {
+
+            if (Vector3.Distance(this.transform.position, enemy.position) < MinDistance) {
+
+                MinDistance = Vector3.Distance(this.transform.position, enemy.position);
+                target = enemy;
+
+            }
+
+        }
+
+        Instantiate(SpecialBullet, bulletExitSpetial.position, bulletExitSpetial.rotation).GetComponent<SpecialBulletLv4>().GoFor(target);
+    } 
 
     void MoveBounds()
     {

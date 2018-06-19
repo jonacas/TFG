@@ -5,7 +5,7 @@ using UnityEngine;
 public class LV3EnemyIA : MonoBehaviour {
 
     public int HP = 0;
-
+    bool defeated = false;
 	// Use this for initialization
 	void Start () {
 		
@@ -22,7 +22,10 @@ public class LV3EnemyIA : MonoBehaviour {
         HP -= damage;
         if (HP <= 0) {
 
-            LV3Manager.currentInstance.SliderChangeValue();
+            if (damage != 100 && !defeated) {
+                defeated = true;
+                LV3Manager.currentInstance.SliderChangeValue();
+            }
             Destroy(this.gameObject);
 
         }
