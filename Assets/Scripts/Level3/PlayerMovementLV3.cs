@@ -47,20 +47,20 @@ public class PlayerMovementLV3 : MonoBehaviour {
         float m_move = Input.GetAxis("Horizontal");
         float m_up = Input.GetAxis("Vertical");
 
-        if (right && m_move > 0) {
+        if (right && m_move > 0.3f) {
             this.transform.position = this.transform.position + new Vector3(m_move * Time.deltaTime * speed, 0, 0);
             if (!m_right) { Rotation(1); }
             m_right = true;
             m_left = false;
          
         }
-        else if (left && m_move < 0) {
+        else if (left && m_move < -0.3f) {
             this.transform.position = this.transform.position + new Vector3(m_move * Time.deltaTime * speed, 0, 0);
             if (!m_left) { Rotation(-1); }
             m_right = false;
             m_left = true;
         }
-        else if (m_move == 0) {
+        else /*if (m_move == 0)*/ {
             if (m_left) {
                 Rotation(1);
             }
