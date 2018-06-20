@@ -5,19 +5,34 @@ using UnityEngine;
 public class EnemyLV5 : MonoBehaviour {
 
     public Transform target;
+    public GameObject Bullet;
+    public Transform bulletExit1;
+    public Transform bulletExit2;
+    public float fireRate = 0.5f;
+    public float LP = 4;
     float speed = 5f;
     float rotationOffset = 0.5f;
     float offset = 2f;
-    float detectionDis = 30f;
+    float detectionDis = 60f;
 	// Use this for initialization
 	void Start () {
-		
+
+        
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
         Move();
         Detection();
+        if (Vector3.Distance(this.transform.position, target.transform.position) < 120 && fireRate <= -2) {
+
+            Shoot();
+
+
+        }
+        fireRate = fireRate - Time.deltaTime;
 	}
 
 
@@ -54,20 +69,43 @@ public class EnemyLV5 : MonoBehaviour {
         if (Physics.Raycast(left,transform.forward, out rayCast, detectionDis)) {
 
             RayCastOffset += Vector3.right;
+            if (rayCast.collider.gameObject.tag == "Player") {
+
+                Shoot();
+
+            }
 
         }
         else if (Physics.Raycast(right, transform.forward, out rayCast, detectionDis))
         {
             RayCastOffset += Vector3.left;
+            if (rayCast.collider.gameObject.tag == "Player")
+            {
+
+                Shoot();
+
+            }
         }
         if (Physics.Raycast(up,transform.forward, out rayCast, detectionDis)) {
 
             RayCastOffset += Vector3.down;
+            if (rayCast.collider.gameObject.tag == "Player")
+            {
+
+                Shoot();
+
+            }
 
         }
         else if (Physics.Raycast(down, transform.forward, out rayCast, detectionDis))
         {
             RayCastOffset += Vector3.up;
+            if (rayCast.collider.gameObject.tag == "Player")
+            {
+
+                Shoot();
+
+            }
         }
 
         if (RayCastOffset != Vector3.zero)
@@ -83,5 +121,40 @@ public class EnemyLV5 : MonoBehaviour {
 
     }
 
+    void Shoot() {
 
+        if (fireRate <= 0) {
+
+            fireRate = 0.5f;
+            Instantiate(Bullet, bulletExit1.position, bulletExit1.rotation);
+            Instantiate(Bullet, bulletExit2.position, bulletExit2.rotation);
+
+
+        }
+
+    }
+
+
+    public void Damage() {
+
+        LP -= 1;
+        
+        if (LP <= 0) {
+
+            PlayerStatsLV5.currentInstance.specialShootBar.value += 1;
+            Destroy(this.gameObject);
+
+
+        }
+
+
+    }
+
+    public void Defeat() {
+
+
+        Destroy(this.gameObject);
+
+
+    } 
 }

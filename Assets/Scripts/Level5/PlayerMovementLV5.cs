@@ -9,11 +9,13 @@ public class PlayerMovementLV5 : MonoBehaviour {
     public float fireRate = 0.2f;
     public GameObject bullet1;
     public GameObject bullet2;
+    public GameObject SpecialBullet;
     public Transform bulletExit1;
     public Transform bulletExit2;
+    public Transform specialBulletExit;
     public float rotationOffset = -25f;
     public GameObject playerShip;
-    Rigidbody rbd;
+    bool specialShootHasObjective = false;
     int rotationAxisHorizontal = 0;
     int rotationAxisVertical = 0;
     bool lateralRolling = false;
@@ -28,7 +30,7 @@ public class PlayerMovementLV5 : MonoBehaviour {
     // Use this for initialization
     void Awake () {
 
-        rbd = this.gameObject.GetComponent<Rigidbody>();
+        //rbd = this.gameObject.GetComponent<Rigidbody>();
 
 	}
 	
@@ -112,17 +114,23 @@ public class PlayerMovementLV5 : MonoBehaviour {
         //Cambios de velocidad
         if (Input.GetAxis("Triggers") < -0.5f)
         {
-            this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed * 2));
-            print("Turbo");
+            this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed * 6));
+
         }
         else if (Input.GetAxis("Triggers") > 0.5)
         {
-            this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed / 2));
+            this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed / 4));
         }
         else {
             this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed));
         }
         if (Input.GetAxis("Fire1") != 0 && (fireRate < 0)) { Shoot(); }
+
+        if (Input.GetAxis("Fire2") != 0 && PlayerStatsLV5.currentInstance.specialShootBar.value == 5) {
+
+            SpecialShoot();
+
+        }
 
     }
     void Shoot()
@@ -131,6 +139,29 @@ public class PlayerMovementLV5 : MonoBehaviour {
         fireRate = 0.2f;
         Instantiate(bullet1, bulletExit1.position, bulletExit1.rotation);
         Instantiate(bullet2, bulletExit2.position, bulletExit2.rotation);
+
+    }
+
+    void SpecialShoot() {
+
+        foreach (Transform enemy in EnemySpecialShootManager.currentInstance.Enemies) {
+
+            Vector3 enemyLocation = Camera.main.WorldToViewportPoint(enemy.position);
+            if (enemyLocation.x >= 0 && enemyLocation.x <= 1 && enemyLocation.y >=0 && enemyLocation.y <= 1 && enemyLocation.z >= 0) {
+
+                specialShootHasObjective = true;
+                Instantiate(SpecialBullet, specialBulletExit.position, specialBulletExit.rotation).GetComponent<SpecialBulletLV5>().GoFor(enemy);
+
+
+            }
+        }
+        if (specialShootHasObjective) {
+
+            PlayerStatsLV5.currentInstance.specialShootBar.value = 0;
+            specialShootHasObjective = false;
+
+        }
+        
 
     }
     void RotationHorizontal(float x)
@@ -243,7 +274,7 @@ public class PlayerMovementLV5 : MonoBehaviour {
     }
     void LateralRoll() {
 
-        if (Input.GetKeyDown(KeyCode.Z) && !lateralRolling && !barrelRolling)
+        if (Input.GetAxis("Fire3") > 0.2 && !lateralRolling && !barrelRolling)
         {
             lateralRolling = true;
             lateralRotationCounter = 180;
@@ -264,7 +295,7 @@ public class PlayerMovementLV5 : MonoBehaviour {
     {
 
         //En proceso de funcionar
-        if (Input.GetKeyDown(KeyCode.X) && !barrelRolling && !lateralRolling)
+        if (Input.GetAxis("Fire4") > 0.2 && !barrelRolling && !lateralRolling)
         {
 
             barrelRolling = true;

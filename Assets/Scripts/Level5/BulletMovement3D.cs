@@ -23,4 +23,16 @@ public class BulletMovement3D : MonoBehaviour {
         }
 
     }
+
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy") {
+
+            collision.gameObject.GetComponent<EnemyLV5>().Damage();
+            Destroy(this.gameObject);
+
+        }
+        
+    }
 }
