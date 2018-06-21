@@ -23,6 +23,7 @@ public class Level1Manager : MonoBehaviour {
     int lifes = 3;
     float timerDeath = 1;
     bool gameOver = false;
+    bool levelComplete = false;
     
     
 
@@ -54,6 +55,7 @@ public class Level1Manager : MonoBehaviour {
 
         }
         Revive();
+        LevelComplete();
 
     }
 
@@ -126,7 +128,25 @@ public class Level1Manager : MonoBehaviour {
         if (lifes == 0) {
 
             gameOver = true;
+            LevelChange.currentInstance.LoadLevel("Level1");
 
         }
+    }
+
+    void LevelComplete() {
+
+        for (int row = 0; row < 11; row++)
+        {
+            for (int col = 0; col < 5; col++)
+            {
+                if (enemies[row, col] != null)
+                {
+                    return;
+                }
+
+            }
+        }
+        levelComplete = true;
+        LevelChange.currentInstance.LoadLevel("Level2");
     }
 }
