@@ -14,11 +14,15 @@ public class PlayerMovementLV2 : MonoBehaviour {
     public bool right = true;
     public bool up = true;
     public bool down = true;
+    public bool SpecialShoot;
     public GameObject bullet;
+    public GameObject specialBullet;
     public Transform bulletExit1;
     public Transform bulletExit2;
     Vector2 ScreenBounds;
     Vector2 PlayerBounds;
+    public float SpecialShootTimer = 5;
+    
     
     // Use this for initialization
     void Awake()
@@ -33,6 +37,23 @@ public class PlayerMovementLV2 : MonoBehaviour {
     void Update()
     {
         fireRate = fireRate - Time.deltaTime;
+        if (SpecialShoot)
+        {
+
+            SpecialShootTimer -= Time.deltaTime;
+
+            if (SpecialShootTimer <= 0)
+            {
+
+                SpecialShoot = false;
+                shoot = global::Shoot.Basic;
+            }
+        }
+        else {
+
+            shoot = global::Shoot.Basic;
+
+        }
         Inputs();
         MoveBounds();
 
@@ -66,6 +87,8 @@ public class PlayerMovementLV2 : MonoBehaviour {
                 Instantiate(bullet, new Vector3(bulletExit2.position.x, bulletExit2.position.y, 0), Quaternion.identity);
                 break;
             case global::Shoot.Special:
+                fireRate = 0.2f;
+                Instantiate(specialBullet, new Vector3(this.transform.position.x, bulletExit1.position.y + (PlayerBounds.y / 2), 0), Quaternion.identity);
                 break;
         }
         

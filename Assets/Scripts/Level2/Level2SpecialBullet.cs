@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletLV2 : MonoBehaviour {
+public class Level2SpecialBullet : MonoBehaviour {
     float speed = 6;
     Vector2 ScreenBounds;
     // Use this for initialization
@@ -34,22 +34,24 @@ public class BulletLV2 : MonoBehaviour {
         if (collision.gameObject.tag == "Enemy")
         {
 
-            collision.gameObject.GetComponent<EnemyIALevel2>().Damage();
-            Destroy(this.gameObject);
-
+            collision.gameObject.GetComponent<EnemyIALevel2>().Defeat();
+           
         }
-        else if (collision.gameObject.tag == "PowerUp") {
+        else if (collision.gameObject.tag == "PowerUp")
+        {
 
-            if (collision.gameObject.name.Contains("Double")) {
+            if (collision.gameObject.name.Contains("Double"))
+            {
 
-                
+
                 PlayerMovementLV2.currentInstance.SpecialShoot = true;
                 PlayerMovementLV2.currentInstance.shoot = Shoot.Double;
-                
+
 
             }
 
-            else if (collision.gameObject.name.Contains("Special")) {
+            else if (collision.gameObject.name.Contains("Special"))
+            {
 
                 PlayerMovementLV2.currentInstance.SpecialShootTimer = 5;
                 PlayerMovementLV2.currentInstance.SpecialShoot = true;
@@ -58,7 +60,7 @@ public class BulletLV2 : MonoBehaviour {
             }
 
             Destroy(collision.gameObject);
-            Destroy(this.gameObject);
+           
         }
 
     }

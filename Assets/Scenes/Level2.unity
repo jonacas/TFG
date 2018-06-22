@@ -745,6 +745,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114702101926235632, guid: 06c8bedf66ac4694b865ecfea3a10bb7,
+        type: 2}
+      propertyPath: specialBullet
+      value: 
+      objectReference: {fileID: 1249525731922310, guid: c03928f08646b134ab2ea70d06ac2cdd,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 06c8bedf66ac4694b865ecfea3a10bb7, type: 2}
   m_IsPrefabParent: 0
