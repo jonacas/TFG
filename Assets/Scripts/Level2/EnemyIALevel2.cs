@@ -52,6 +52,23 @@ public class EnemyIALevel2 : MonoBehaviour {
         HP = HP - 1;
         if (HP <= 0) {
 
+            if (Padre.gameObject.name.Contains("Enemy3")) {
+
+                int random = Random.Range(0, 100);
+
+                if ( random <= 70)
+                {
+
+                    Instantiate(Level2M.currentInstance.boxDoubleShoot, this.gameObject.transform.position, Quaternion.identity);
+
+                }
+                else {
+
+                    Instantiate(Level2M.currentInstance.boxSpecialShoot, this.gameObject.transform.position, Quaternion.identity);
+
+                }
+
+            }
             Destroy(Padre);
             
 
@@ -61,6 +78,29 @@ public class EnemyIALevel2 : MonoBehaviour {
     }
 
     public void Defeat() {
+
+
+
+        if (Padre.gameObject.name.Contains("Enemy3"))
+        {
+
+            int random = Random.Range(0, 100);
+            print(random);
+
+            if (random <= 70)
+            {
+
+                Instantiate(Level2M.currentInstance.boxDoubleShoot, this.gameObject.transform.position, Quaternion.identity);
+
+            }
+            else
+            {
+
+                Instantiate(Level2M.currentInstance.boxSpecialShoot, this.gameObject.transform.position, Quaternion.identity);
+
+            }
+
+        }
 
         Destroy(Padre);
 

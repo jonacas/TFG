@@ -8,6 +8,8 @@ public class Level2M : MonoBehaviour {
     public GameObject PlayerLV2;
     public GameObject[] arrayLifes = new GameObject[3];
     public GameObject[] arrayMrks = new GameObject[3];
+    public GameObject boxDoubleShoot;
+    public GameObject boxSpecialShoot;
     int lifes = 3;
     float timerDeath = 1;
     int markSelected = 0;

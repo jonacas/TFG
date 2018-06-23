@@ -191,9 +191,13 @@ MonoBehaviour:
   right: 1
   up: 1
   down: 1
+  SpecialShoot: 0
   bullet: {fileID: 1045692170078096, guid: 98e8905ed02d1a64ea6b31872315763e, type: 2}
+  specialBullet: {fileID: 1249525731922310, guid: c03928f08646b134ab2ea70d06ac2cdd,
+    type: 2}
   bulletExit1: {fileID: 4573327627608378}
   bulletExit2: {fileID: 4014907096969796}
+  SpecialShootTimer: 5
 --- !u!212 &212099174610710986
 SpriteRenderer:
   m_ObjectHideFlags: 1
