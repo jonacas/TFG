@@ -10,6 +10,8 @@ public class Level2M : MonoBehaviour {
     public GameObject[] arrayMrks = new GameObject[3];
     public GameObject boxDoubleShoot;
     public GameObject boxSpecialShoot;
+    public GameObject bottonA;
+    public GameObject BulletsHUD;
     int lifes = 3;
     float timerDeath = 1;
     int markSelected = 0;
@@ -46,12 +48,19 @@ public class Level2M : MonoBehaviour {
                 lifes--;
                 timerDeath = 1;
                 arrayLifes[lifes].SetActive(false);
+
             }
         }
         if (lifes == 0)
         {
 
             gameOver = true;
+            arrayMrks[0].SetActive(false);
+            arrayMrks[1].SetActive(false);
+            arrayMrks[2].SetActive(false);
+            bottonA.SetActive(false);
+            BulletsHUD.SetActive(false);
+            LevelChange.currentInstance.LoadLevel("Level2");
 
         }
     }

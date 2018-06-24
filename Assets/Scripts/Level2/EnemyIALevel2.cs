@@ -23,7 +23,7 @@ public class EnemyIALevel2 : MonoBehaviour {
 	void Update () {
 
         shootDealay = shootDealay - Time.deltaTime;
-       
+        player = PlayerMovementLV2.currentInstance.gameObject;
         float distance = Mathf.Abs(transform.position.x - player.transform.position.x);
         
         if (distance < attackDistance && shootDealay <=0) {

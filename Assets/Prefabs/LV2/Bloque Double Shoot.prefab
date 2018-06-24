@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4649501976753564}
   - component: {fileID: 212576166309555112}
   - component: {fileID: 61351743500083684}
+  - component: {fileID: 114665494452952414}
   m_Layer: 0
   m_Name: Bloque Double Shoot
   m_TagString: PowerUp
@@ -126,6 +127,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1}
   m_EdgeRadius: 0
+--- !u!114 &114665494452952414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1512046550416174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23fc6f70c590ec94881f472e21970a8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ereaserTime: 3
 --- !u!212 &212166127186156332
 SpriteRenderer:
   m_ObjectHideFlags: 1

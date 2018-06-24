@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 4318155370492886}
   - component: {fileID: 212959646310921070}
   - component: {fileID: 61384959179404800}
+  - component: {fileID: 114373246542913430}
   m_Layer: 0
   m_Name: Bloque SpecialShoot
   m_TagString: PowerUp
@@ -96,6 +97,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1}
   m_EdgeRadius: 0
+--- !u!114 &114373246542913430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1249689576963368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23fc6f70c590ec94881f472e21970a8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ereaserTime: 2.5
 --- !u!212 &212653569594252582
 SpriteRenderer:
   m_ObjectHideFlags: 1

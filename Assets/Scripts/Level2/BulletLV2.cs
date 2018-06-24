@@ -42,7 +42,7 @@ public class BulletLV2 : MonoBehaviour {
 
             if (collision.gameObject.name.Contains("Double")) {
 
-                
+                PlayerMovementLV2.currentInstance.SpecialShootTimer = 5;
                 PlayerMovementLV2.currentInstance.SpecialShoot = true;
                 PlayerMovementLV2.currentInstance.shoot = Shoot.Double;
                 
