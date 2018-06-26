@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveOnPath : MonoBehaviour {
+public class MoveOnPathLv3 : MonoBehaviour {
 
 
     public PathEditor PathToFollow;
@@ -18,16 +18,18 @@ public class MoveOnPath : MonoBehaviour {
 
 
     Vector3 currentPosition;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
         currentWayPoint = 0;
-    
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
 
         if (wayPointStop == currentWayPoint)
@@ -47,9 +49,10 @@ public class MoveOnPath : MonoBehaviour {
         }
         Move();
 
-	}
+    }
 
-    void Move() {
+    void Move()
+    {
 
         float distance = Vector3.Distance(PathToFollow.pathPoints[currentWayPoint].position, transform.position);
         transform.position = Vector3.MoveTowards(transform.position, PathToFollow.pathPoints[currentWayPoint].position, Time.deltaTime * speed);
@@ -57,11 +60,12 @@ public class MoveOnPath : MonoBehaviour {
 
         var rotation = Quaternion.LookRotation(PathToFollow.pathPoints[currentWayPoint].position);
         transform.LookAt(PathToFollow.pathPoints[currentWayPoint].position);
-        transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, 0, 0);
+        transform.rotation = new Quaternion(0, transform.rotation.y, transform.rotation.z, 0);
 
-        if (stop && this.transform.position == PathToFollow.pathPoints[currentWayPoint].position) {
-            transform.eulerAngles = new Vector3(0,0,-stopRotation);
-            
+        if (stop && this.transform.position == PathToFollow.pathPoints[currentWayPoint].position)
+        {
+            transform.eulerAngles = new Vector3(0, 0, -stopRotation);
+
 
         }
         if (distance <= reachDistance && !stop)

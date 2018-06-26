@@ -40,7 +40,7 @@ public class BulletLv3 : MonoBehaviour {
         if (collision.gameObject.tag == "Player") {
 
             LV3Manager.currentInstance.death = true;
-            Destroy(collision.gameObject);
+            Destroy(PlayerMovementLV3.currentInstance.gameObject);
             Destroy(this.gameObject);
 
         }
