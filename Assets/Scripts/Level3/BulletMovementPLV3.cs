@@ -34,5 +34,11 @@ public class BulletMovementPLV3 : MonoBehaviour {
             Destroy(this.gameObject);
 
         }
+        else if (collision.gameObject.tag == "Obstacle") {
+
+            Destroy(this.gameObject);
+
+
+        }
     }
 }

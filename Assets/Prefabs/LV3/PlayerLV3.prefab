@@ -68,7 +68,6 @@ GameObject:
   - component: {fileID: 4185724833730384}
   - component: {fileID: 33085611648698264}
   - component: {fileID: 23387809689055984}
-  - component: {fileID: 61456289557864128}
   - component: {fileID: 114301709998410366}
   m_Layer: 0
   m_Name: PlayerLV3
@@ -180,31 +179,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1916620443498556}
   m_Mesh: {fileID: 4300000, guid: 015ff4ea01e2ae943a4d047f38332ca8, type: 3}
---- !u!61 &61456289557864128
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1916620443498556}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 102985.16}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.051539887, y: 411940.7}
-  m_EdgeRadius: 0
 --- !u!114 &114301709998410366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -218,12 +192,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   fireRate: 0.1
-  impulseForce: 2
+  impulseForce: 20
+  dashDistance: 2
   rotationOffset: -35
   bullet: {fileID: 1499227919050080, guid: a34fcd8d28cdee3469f3838761a5c15b, type: 2}
+  specialBullet: {fileID: 1802687251278508, guid: 79c2637e0390fac46888018648a1c565,
+    type: 2}
   bulletExit1: {fileID: 4477231153306868}
   bulletExit2: {fileID: 4781902249142616}
-  m_camera: {fileID: 0}
+  Collider: {fileID: 0}
 --- !u!198 &198433247356189552
 ParticleSystem:
   m_ObjectHideFlags: 1

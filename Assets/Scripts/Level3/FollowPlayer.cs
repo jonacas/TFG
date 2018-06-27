@@ -20,10 +20,10 @@ public class FollowPlayer : MonoBehaviour {
         else {
 
             this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
-
+            this.transform.position = PlayerMovementLV3.currentInstance.transform.position;
         }
 
-        this.transform.position = PlayerMovementLV3.currentInstance.transform.position;
+       
 	}
 
 }

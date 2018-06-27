@@ -23,7 +23,6 @@ public class EnemyLv3Shoot : MonoBehaviour {
 
             foreach (Transform bullet in bullets)
             {
-                print("disparando");
                 if (bullet.tag == "bullet") {
                     Instantiate(bullet.gameObject, this.transform.position, Quaternion.identity);
                 }
