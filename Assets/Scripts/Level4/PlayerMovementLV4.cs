@@ -9,6 +9,8 @@ public class PlayerMovementLV4 : MonoBehaviour {
     public float fireRate = 0.2f;
     public float speed = 5f;
     public float rotationSpeed = -3f;
+    public float impulseForce = 200;
+    public float dashDistance;
     public GameObject bullet1;
     public GameObject bullet2;
     public GameObject SpecialBullet;
@@ -20,10 +22,14 @@ public class PlayerMovementLV4 : MonoBehaviour {
     bool right = true;
     bool up = true;
     bool down = true;
+    bool dashing = false;
     float counterUp;
     float counterDown;
     float counterLeft;
     float counterRigth;
+    float impulseRate = 0.2f;
+    float impulseSide;
+    float impulse = 2;
     int limit = 5;
 
 
@@ -36,7 +42,7 @@ public class PlayerMovementLV4 : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        impulseRate = impulseRate - Time.deltaTime;
         fireRate = fireRate - Time.deltaTime;
         ReadInputs();
         MoveBounds();
@@ -45,42 +51,9 @@ public class PlayerMovementLV4 : MonoBehaviour {
     void ReadInputs() {
 
         #region Movement
-        float m_move = Input.GetAxis("Horizontal");
-        float m_up = Input.GetAxis("Vertical");
 
-        if (right && m_move > 0) {
+        if (!dashing) { Move(); }
 
-            this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move, 0, 0);
-
-        }
-        else if (left && m_move < 0) {
-
-            this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move, 0, 0);
-
-        }
-        if (up && m_up > 0) {
-
-            this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0);
-
-        }
-        else if (down && m_up < 0) {
-
-            this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0);
-
-        }
-        CameraBoundsMove(m_move, m_up);
-        if (m_move > 0.5f && (this.transform.eulerAngles.z > 330 || this.transform.eulerAngles.z < 30))
-        {
-            Rotation(m_move);
-        }
-        else if (m_move < -0.5f && (this.transform.eulerAngles.z < 30 || this.transform.eulerAngles.z > 330))
-        {
-            Rotation(m_move);
-        }
-        else if (m_move > -0.3f && m_move < 0.3f)
-        {
-            Rotation(0);
-        }
         #endregion
         #region Shoot
         if (Input.GetAxis("Fire1") != 0 && (fireRate < 0)) { Shoot(); }
@@ -110,6 +83,127 @@ public class PlayerMovementLV4 : MonoBehaviour {
         }
 
         #endregion
+
+        #region Dash
+        if (Input.GetAxis("Bumper1") != 0 && impulseRate <= 0 && !dashing)
+        {
+            impulseSide = Input.GetAxis("Bumper1");
+            if (impulseSide < 0 && left)
+            {
+
+               
+                
+                dashing = true;
+                impulse = 2;
+
+
+
+            }
+            else if (impulseSide > 0 && right)
+            {
+
+
+               
+                dashing = true;
+                impulse = 2;
+
+
+            }
+
+        }
+        if (dashing)
+        {
+
+            Dash();
+
+        }
+        #endregion
+    }
+
+    void Dash()
+    {
+
+        if (impulse <= 0)
+        {
+
+            dashing = false;
+            impulse = 2;
+            impulseRate = 0.2f;
+            
+
+        }
+        else if (impulseSide < 0 && !left)
+        {
+
+            dashing = false;
+            impulse = 2;
+            impulseRate = 0.2f;
+            
+
+
+        }
+        else if (impulseSide > 0 && !right)
+        {
+
+            dashing = false;
+            impulse = 2;
+            impulseRate = 0.2f;
+           
+
+
+        }
+        this.transform.Translate(Vector3.right * impulseForce * impulseSide * Time.deltaTime);
+        impulse -= impulseForce * Time.deltaTime;
+
+    }
+
+
+    void Move() {
+
+        float m_move = Input.GetAxis("Horizontal");
+        float m_up = Input.GetAxis("Vertical");
+
+        if (right && m_move > 0)
+        {
+
+            this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move, 0, 0);
+
+        }
+        else if (left && m_move < 0)
+        {
+
+            this.gameObject.transform.position = this.transform.position + new Vector3(speed * Time.deltaTime * m_move, 0, 0);
+
+        }
+        if (up && m_up > 0)
+        {
+
+            this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0);
+
+        }
+        else if (down && m_up < 0)
+        {
+
+            this.gameObject.transform.position = this.transform.position + new Vector3(0, speed * Time.deltaTime * m_up, 0);
+
+        }
+        CameraBoundsMove(m_move, m_up);
+        if (m_move > 0.5f && (this.transform.eulerAngles.z > 330 || this.transform.eulerAngles.z < 30))
+        {
+            Rotation(m_move);
+        }
+        else if (m_move < -0.5f && (this.transform.eulerAngles.z < 30 || this.transform.eulerAngles.z > 330))
+        {
+            Rotation(m_move);
+        }
+        else if (m_move > -0.3f && m_move < 0.3f)
+        {
+            Rotation(0);
+        }
+
+
+
+
     }
     void Shoot()
     {

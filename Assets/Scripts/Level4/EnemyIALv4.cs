@@ -9,16 +9,22 @@ public class EnemyIALv4 : MonoBehaviour {
     public GameObject bullet;
     public GameObject Padre;
     public int HP = 10;
-    float timer = 2;
-	
-	// Update is called once per frame
-	void Update () {
+    public float fireRate = 2;
+    float timer;
+
+    private void Start()
+    {
+        timer = fireRate;
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         timer = timer - Time.deltaTime;
         if (timer<0) {
             Instantiate(bullet, bulletExit1.position, bulletExit1.rotation);
             Instantiate(bullet, bulletExit2.position,bulletExit2.rotation);
-            timer = 2;
+            timer = fireRate;
         }
 
 	}

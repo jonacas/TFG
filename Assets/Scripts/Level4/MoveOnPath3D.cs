@@ -57,17 +57,10 @@ public class MoveOnPath3D : MonoBehaviour
         float distance = Vector3.Distance(PathToFollow.pathPoints[currentWayPoint].position, transform.position);
         transform.position = Vector3.MoveTowards(transform.position, PathToFollow.pathPoints[currentWayPoint].position, Time.deltaTime * speed);
 
-        var rotation = Quaternion.LookRotation(PathToFollow.pathPoints[currentWayPoint].position);
+        //var rotation = Quaternion.LookRotation(PathToFollow.pathPoints[currentWayPoint].position);
         //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         transform.LookAt(PathToFollow.pathPoints[currentWayPoint].position);
 
-
-        if (stop && this.transform.position == PathToFollow.pathPoints[currentWayPoint].position)
-        {
-            //rotation = Quaternion.LookRotation(PlayerMovementLV2.currentInstance.transform.position);
-            //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-
-        }
 
         if (distance <= reachDistance && !stop)
         {

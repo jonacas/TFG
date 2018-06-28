@@ -31,10 +31,15 @@ public class Bullet3DLevel4 : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-       
+
         if (collision.gameObject.tag == "Enemy") {
 
             collision.gameObject.GetComponent<EnemyIALv4>().Damage();
+            Destroy(this.gameObject);
+
+        }
+        else if (collision.gameObject.tag == "Obstacle") {
+
             Destroy(this.gameObject);
 
         }

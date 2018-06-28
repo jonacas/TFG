@@ -21,11 +21,11 @@ public class ObstacleScriptLV3 : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
 
-            print(collision.gameObject);
             LV3Manager.currentInstance.death = true;
             Destroy(PlayerMovementLV3.currentInstance.gameObject);
 
         }
+        
     }
 
 }

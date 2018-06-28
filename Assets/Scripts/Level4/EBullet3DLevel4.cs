@@ -46,5 +46,11 @@ public class EBullet3DLevel4 : MonoBehaviour {
             Destroy(this.gameObject);
 
         }
+        else if (collision.gameObject.tag == "Obstacle")
+        {
+
+            Destroy(this.gameObject);
+
+        }
     }
 }

@@ -28,9 +28,17 @@ public class PlayerLv4Manager : MonoBehaviour {
 
         }
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Obstacle") {
+
+            Damage(10);
+            collision.gameObject.GetComponent<BoxCollider>().enabled = false;
 
 
-
+        }
     }
 
 
