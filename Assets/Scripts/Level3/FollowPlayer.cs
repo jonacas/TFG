@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour {
 
+    public static FollowPlayer currentInstance;
 	// Use this for initialization
 	void Start () {
-		
+
+        currentInstance = this;
+
 	}
 	
 	// Update is called once per frame
@@ -14,12 +17,12 @@ public class FollowPlayer : MonoBehaviour {
 
         if (PlayerMovementLV3.currentInstance == null)
         {
-            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            this.gameObject.GetComponent<PolygonCollider2D>().enabled = false;
             
         }
         else {
 
-            this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+            this.gameObject.GetComponent<PolygonCollider2D>().enabled = true;
             this.transform.position = PlayerMovementLV3.currentInstance.transform.position;
         }
 

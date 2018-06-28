@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 114301709998410366}
   m_Layer: 0
   m_Name: PlayerLV3
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
     type: 2}
   bulletExit1: {fileID: 4477231153306868}
   bulletExit2: {fileID: 4781902249142616}
-  Collider: {fileID: 0}
+  ColliderPlayer: {fileID: 0}
 --- !u!198 &198433247356189552
 ParticleSystem:
   m_ObjectHideFlags: 1

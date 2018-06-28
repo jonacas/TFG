@@ -14,7 +14,6 @@ public class PlayerMovementLV3 : MonoBehaviour {
     public GameObject specialBullet;
     public Transform bulletExit1;
     public Transform bulletExit2;
-    public GameObject Collider;
     bool left = true;
     bool right = true;
     bool up = true;
@@ -71,17 +70,21 @@ public class PlayerMovementLV3 : MonoBehaviour {
             impulseSide = Input.GetAxis("Bumper1");
             if (impulseSide < 0 && left) {
 
+
+                FollowPlayer.currentInstance.gameObject.tag = "Obstacle";
                 dashing = true;
                 impulse = 2;
-                Collider.SetActive(false);
+                
 
 
             }
             else if (impulseSide > 0 && right) {
 
+
+                FollowPlayer.currentInstance.gameObject.tag = "Obstacle";
                 dashing = true;
                 impulse = 2;
-                Collider.SetActive(false);
+                
 
             }
            
@@ -102,7 +105,8 @@ public class PlayerMovementLV3 : MonoBehaviour {
             dashing = false;
             impulse = 2;
             impulseRate = 0.5f;
-            Collider.SetActive(true);
+            FollowPlayer.currentInstance.gameObject.tag = "Player";
+
         }
         else if (impulseSide < 0 && !left)
         {
@@ -110,7 +114,8 @@ public class PlayerMovementLV3 : MonoBehaviour {
             dashing = false;
             impulse = 2;
             impulseRate = 0.5f;
-            Collider.SetActive(true);
+            FollowPlayer.currentInstance.gameObject.tag = "Player";
+
 
         }
         else if (impulseSide > 0 && !right)
@@ -119,7 +124,8 @@ public class PlayerMovementLV3 : MonoBehaviour {
             dashing = false;
             impulse = 2;
             impulseRate = 0.5f;
-            Collider.SetActive(true);
+            FollowPlayer.currentInstance.gameObject.tag = "Player";
+
 
         }
         this.transform.Translate(Vector3.right * impulseForce * impulseSide * Time.deltaTime);
