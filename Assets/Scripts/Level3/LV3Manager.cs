@@ -69,6 +69,8 @@ public class LV3Manager : MonoBehaviour {
         {
 
             gameOver = true;
+            LevelChange.currentInstance.LoadLevel("Level3");
+
 
         }
     }

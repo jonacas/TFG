@@ -22,7 +22,7 @@ public class PlayerMovementLV3 : MonoBehaviour {
     bool m_left = false;
     Vector2 ScreenBounds;
     Vector2 PlayerBounds;
-    float impulseRate = 0.5f;
+    float impulseRate = 0.2f;
     bool dashing = false;
     float impulse = 2;
     float impulseSide;
@@ -104,7 +104,7 @@ public class PlayerMovementLV3 : MonoBehaviour {
 
             dashing = false;
             impulse = 2;
-            impulseRate = 0.5f;
+            impulseRate = 0.2f;
             FollowPlayer.currentInstance.gameObject.tag = "Player";
 
         }
@@ -113,7 +113,7 @@ public class PlayerMovementLV3 : MonoBehaviour {
 
             dashing = false;
             impulse = 2;
-            impulseRate = 0.5f;
+            impulseRate = 0.2f;
             FollowPlayer.currentInstance.gameObject.tag = "Player";
 
 
@@ -123,7 +123,7 @@ public class PlayerMovementLV3 : MonoBehaviour {
 
             dashing = false;
             impulse = 2;
-            impulseRate = 0.5f;
+            impulseRate = 0.2f;
             FollowPlayer.currentInstance.gameObject.tag = "Player";
 
 
