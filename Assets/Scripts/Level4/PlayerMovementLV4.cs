@@ -226,14 +226,22 @@ public class PlayerMovementLV4 : MonoBehaviour {
 
 
         float MinDistance = Vector3.Distance(this.transform.position, EnemySpecialShootManager.currentInstance.Enemies[0].position);
-        Transform target = EnemySpecialShootManager.currentInstance.Enemies[0];
+        Transform target = null;
+        if (Camera.main.WorldToViewportPoint(EnemySpecialShootManager.currentInstance.Enemies[0].position).z >= 0) {
+
+            target = EnemySpecialShootManager.currentInstance.Enemies[0];
+        }
 
         foreach (Transform enemy in EnemySpecialShootManager.currentInstance.Enemies) {
 
             if (Vector3.Distance(this.transform.position, enemy.position) < MinDistance) {
 
-                MinDistance = Vector3.Distance(this.transform.position, enemy.position);
-                target = enemy;
+                if (Camera.main.WorldToViewportPoint(enemy.position).z > 0) {
+
+                    MinDistance = Vector3.Distance(this.transform.position, enemy.position);
+                    target = enemy;
+                }
+                
 
             }
 

@@ -21,7 +21,7 @@ public class EnemyIALv4 : MonoBehaviour {
     void Update () {
 
         timer = timer - Time.deltaTime;
-        if (timer<0) {
+        if (timer<0 && this.gameObject.GetComponent<MoveOnPath3D>().currentWayPoint < this.gameObject.GetComponent<MoveOnPath3D>().PathToFollow.pathPoints.Count-1) {
             Instantiate(bullet, bulletExit1.position, bulletExit1.rotation);
             Instantiate(bullet, bulletExit2.position,bulletExit2.rotation);
             timer = fireRate;

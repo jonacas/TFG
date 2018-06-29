@@ -15,7 +15,6 @@ public class LV4Activator : MonoBehaviour {
     void Update()
     {
 
-        transform.position = transform.position + Vector3.down * 5 * Time.deltaTime;
         Vector3 comprobar = Camera.main.WorldToViewportPoint(transform.position);
         if (comprobar.x > 0 && comprobar.x < 1 && comprobar.y > 0 && comprobar.y < 1 && comprobar.z < 40)
         {

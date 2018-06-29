@@ -23,6 +23,8 @@ public class PlayerLv4Manager : MonoBehaviour {
 
         if (PlayerCurrentLife <= 0) {
 
+            LevelChange.currentInstance.LoadLevel("Level4");
+
             Destroy(this.gameObject);
 
 

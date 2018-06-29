@@ -55,5 +55,11 @@ public class SpecialBulletLv4 : MonoBehaviour {
             Destroy(this.gameObject);
 
         }
+        else if (collision.gameObject.tag == "Obstacle") {
+
+
+            Destroy(this);
+
+        }
     }
 }

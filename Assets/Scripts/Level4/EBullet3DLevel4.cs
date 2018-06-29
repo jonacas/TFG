@@ -5,7 +5,7 @@ using UnityEngine;
 public class EBullet3DLevel4 : MonoBehaviour {
 
     public float speed = 1;
-    float timer = 2f;
+    float timer = 5f;
     public float damage = 5;
     Vector3 playerPosition;
     Vector3 pathToPlayer;
@@ -26,6 +26,13 @@ public class EBullet3DLevel4 : MonoBehaviour {
         {
 
             Destroy(this.gameObject);
+
+        }
+        Vector3 comprobar = Camera.main.WorldToViewportPoint(transform.position);
+        if (comprobar.z <  0) {
+
+            Destroy(this.gameObject);
+
 
         }
 
