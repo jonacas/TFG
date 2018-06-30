@@ -10,23 +10,34 @@ public class EnemyLV5 : MonoBehaviour {
     public Transform bulletExit2;
     public float fireRate = 0.5f;
     public float LP = 4;
-    float speed = 5f;
+    Vector3 initialPosition;
+    float speed = 10f;
     float rotationOffset = 0.5f;
     float offset = 2f;
     float detectionDis = 60f;
 	// Use this for initialization
 	void Start () {
 
-        
+        initialPosition = this.gameObject.transform.position;
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        Move();
-        Detection();
-        if (Vector3.Distance(this.transform.position, target.transform.position) < 120 && fireRate <= -2) {
+
+        if (Vector3.Distance(target.position, initialPosition) <= 500) {
+            Move();
+            Detection();
+        }
+        else{
+
+            this.transform.position = Vector3.MoveTowards(this.transform.position, initialPosition, 20 * Time.deltaTime);
+
+        }
+
+        
+        if (Vector3.Distance(this.transform.position, target.transform.position) < 300 && fireRate <= -2) {
 
             Shoot();
 

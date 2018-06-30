@@ -11,7 +11,6 @@ public class Objective : MonoBehaviour {
     public void Damage() {
 
         life -= 1;
-        print(life);
         if (life <= 0) {
 
            

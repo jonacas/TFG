@@ -147,7 +147,7 @@ public class PlayerMovementLV5 : MonoBehaviour {
         foreach (Transform enemy in EnemySpecialShootManager.currentInstance.Enemies) {
 
             Vector3 enemyLocation = Camera.main.WorldToViewportPoint(enemy.position);
-            if (enemyLocation.x >= 0 && enemyLocation.x <= 1 && enemyLocation.y >=0 && enemyLocation.y <= 1 && enemyLocation.z >= 0) {
+            if (enemyLocation.x >= 0 && enemyLocation.x <= 1 && enemyLocation.y >=0 && enemyLocation.y <= 1 && enemyLocation.z >= 0 && enemyLocation.z < 400) {
 
                 specialShootHasObjective = true;
                 Instantiate(SpecialBullet, specialBulletExit.position, specialBulletExit.rotation).GetComponent<SpecialBulletLV5>().GoFor(enemy);
