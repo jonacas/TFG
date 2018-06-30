@@ -33,6 +33,13 @@ public class BulletMovement3D : MonoBehaviour {
             Destroy(this.gameObject);
 
         }
+
+        if (collision.gameObject.tag == "Obstacle") {
+
+            collision.gameObject.GetComponent<Objective>().Damage();
+            Destroy(this.gameObject);
+
+        }
         
     }
 }
