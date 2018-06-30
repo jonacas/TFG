@@ -13,7 +13,7 @@ public class Objective : MonoBehaviour {
         life -= 1;
         if (life <= 0) {
 
-           
+            Level5Manager.currentInstance.ObjectiveDestroy();
             Destroy(this.gameObject);
 
 

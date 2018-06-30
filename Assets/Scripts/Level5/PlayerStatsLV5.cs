@@ -24,7 +24,7 @@ public class PlayerStatsLV5 : MonoBehaviour {
         currentLP = currentLP - damage;
         lifeBar.value = currentLP;
         if (currentLP <= 0 ) {
-
+            LevelChange.currentInstance.LoadLevel("Level5");
             Destroy(this.gameObject);
 
         }

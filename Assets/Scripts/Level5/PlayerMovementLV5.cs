@@ -15,6 +15,8 @@ public class PlayerMovementLV5 : MonoBehaviour {
     public Transform specialBulletExit;
     public float rotationOffset = -25f;
     public GameObject playerShip;
+    public float impulseForce = 200;
+    public float dashDistance;
     bool specialShootHasObjective = false;
     int rotationAxisHorizontal = 0;
     int rotationAxisVertical = 0;
@@ -25,6 +27,10 @@ public class PlayerMovementLV5 : MonoBehaviour {
     int limitRotationVertical = 15;
     float lateralRotationCounter = 180;
     float barrelRotationCounter = 360;
+    bool dashing = false;
+    float impulseRate = 0.2f;
+    float impulseSide;
+    float impulse = 2;
 
 
     // Use this for initialization
@@ -36,7 +42,7 @@ public class PlayerMovementLV5 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        impulseRate = impulseRate - Time.deltaTime;
         fireRate = fireRate - Time.deltaTime;
         if (!barrelRolling && !lateralRolling) {
 
@@ -53,6 +59,60 @@ public class PlayerMovementLV5 : MonoBehaviour {
 
 
     void ReadInputs() {
+
+        if (!dashing) {
+
+            Move();
+        }
+
+        #region Dash
+        if (Input.GetAxis("Bumper1") != 0 && impulseRate <= 0 && !dashing)
+        {
+            impulseSide = Input.GetAxis("Bumper1");
+            if (impulseSide < 0)
+            {
+
+
+
+                dashing = true;
+                impulse = 2;
+
+
+
+            }
+            else if (impulseSide > 0)
+            {
+
+
+
+                dashing = true;
+                impulse = 2;
+
+
+            }
+
+        }
+        if (dashing)
+        {
+
+            Dash();
+
+        }
+        #endregion
+
+        if (Input.GetAxis("Fire1") != 0 && (fireRate < 0)) { Shoot(); }
+
+        if (Input.GetAxis("Fire2") != 0 && PlayerStatsLV5.currentInstance.specialShootBar.value == 5) {
+
+            SpecialShoot();
+
+        }
+
+    }
+
+    void Move() {
+
+        #region Movement
         //Giro Horizontal
         if (Input.GetAxis("Horizontal") > 0.5f && (playerShip.transform.eulerAngles.z > 330 || playerShip.transform.eulerAngles.z < 30))
         {
@@ -106,7 +166,8 @@ public class PlayerMovementLV5 : MonoBehaviour {
         {
             this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(turnSpeed * Time.deltaTime * -Input.GetAxis("Vertical"), Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
         }
-        else {
+        else
+        {
 
             this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(0, Time.deltaTime * turnSpeed * Input.GetAxis("Horizontal"), 0);
 
@@ -121,16 +182,29 @@ public class PlayerMovementLV5 : MonoBehaviour {
         {
             this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed / 4));
         }
-        else {
+        else
+        {
             this.transform.Translate(new Vector3(0, 0, Time.deltaTime * speed));
         }
-        if (Input.GetAxis("Fire1") != 0 && (fireRate < 0)) { Shoot(); }
 
-        if (Input.GetAxis("Fire2") != 0 && PlayerStatsLV5.currentInstance.specialShootBar.value == 5) {
+        #endregion 
 
-            SpecialShoot();
+    }
+
+    void Dash()
+    {
+
+        if (impulse <= 0)
+        {
+
+            dashing = false;
+            impulse = 2;
+            impulseRate = 0.2f;
+
 
         }
+        this.transform.Translate(Vector3.right * impulseForce * impulseSide * Time.deltaTime);
+        impulse -= impulseForce * Time.deltaTime;
 
     }
     void Shoot()
@@ -147,7 +221,7 @@ public class PlayerMovementLV5 : MonoBehaviour {
         foreach (Transform enemy in EnemySpecialShootManager.currentInstance.Enemies) {
 
             Vector3 enemyLocation = Camera.main.WorldToViewportPoint(enemy.position);
-            if (enemyLocation.x >= 0 && enemyLocation.x <= 1 && enemyLocation.y >=0 && enemyLocation.y <= 1 && enemyLocation.z >= 0 && enemyLocation.z < 400) {
+            if (enemyLocation.x >= 0 && enemyLocation.x <= 1 && enemyLocation.y >=0 && enemyLocation.y <= 1 && enemyLocation.z >= 0 && enemyLocation.z < 600) {
 
                 specialShootHasObjective = true;
                 Instantiate(SpecialBullet, specialBulletExit.position, specialBulletExit.rotation).GetComponent<SpecialBulletLV5>().GoFor(enemy);
