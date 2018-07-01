@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
 
-    public static bool isPause = false;
+    bool isPause = false;
     public GameObject fondo;
     public Text[] Text;
     int index = 0;
@@ -15,8 +15,11 @@ public class PauseMenu : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
+        isPause = false;
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
         fondo.SetActive(false);
+
 
     }
 
@@ -26,11 +29,12 @@ public class PauseMenu : MonoBehaviour {
         if (isPause)
         {
             Menu();
-            //ResumeGame();
+
         }
         else
         {
             PauseGame();
+            
         }
 
 
@@ -159,6 +163,10 @@ public class PauseMenu : MonoBehaviour {
     void MainMenu() {
 
         LevelChange.currentInstance.LoadLevel("Menu");
+        isPause = false;
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        fondo.SetActive(false);
 
     }
 

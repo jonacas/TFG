@@ -22,7 +22,7 @@ public class Level5Manager : MonoBehaviour {
 
         if (objectives <= 0) {
 
-            LevelChange.currentInstance.LoadLevel("Menu");
+            LevelChange.currentInstance.LoadLevel("GameOver");
 
 
         }

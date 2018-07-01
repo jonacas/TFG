@@ -6,9 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
-    public static bool isPause = false;
+
     public Text[] Text;
     public Text[] Levels;
+    public GameObject controllsScreen;
     int index = 0;
     int indexLevels = 0;
     bool Up = false;
@@ -16,12 +17,20 @@ public class MainMenu : MonoBehaviour {
     bool mainMenu = true;
     bool selecLevelMenu = false;
     bool controls = false;
-    float activator = 0.5f;
+    float activator = 0.25f;
 
 
 	// Use this for initialization
 	void Start () {
 
+        index = 0;
+        indexLevels = 0;
+        Up = false;
+        Down = false;
+        mainMenu = true;
+        selecLevelMenu = false;
+        controls = false;
+        activator = 0.25f;
         foreach (Text level in Levels)
         {
 
@@ -34,7 +43,7 @@ public class MainMenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
+        activator -= Time.deltaTime;
         if (mainMenu)
         {
             MenuInputs();
@@ -43,7 +52,7 @@ public class MainMenu : MonoBehaviour {
         {
 
             LevelsInputs();
-            activator -= Time.deltaTime;
+            
 
         }
         else if (controls) {
@@ -107,6 +116,7 @@ public class MainMenu : MonoBehaviour {
                     break;
                 case 1:
                     selecLevelMenu = true;
+                    indexLevels = 0;
                     mainMenu = false;
                     foreach (Text option in Text) {
                         option.enabled = false;
@@ -117,7 +127,7 @@ public class MainMenu : MonoBehaviour {
                         level.enabled = true;
 
                     }
-                    activator = 0.5f;
+                    activator = 0.25f;
                     break;
                 case 2:
                     mainMenu = false;
@@ -127,6 +137,7 @@ public class MainMenu : MonoBehaviour {
 
                     }
                     controls = true;
+                    controllsScreen.SetActive(true);
                     break;
                 case 3:
                     Application.Quit();
@@ -231,13 +242,16 @@ public class MainMenu : MonoBehaviour {
 
         }
 
+        print("Boton mando " + Input.GetKey(KeyCode.Joystick1Button0));
+        print("Boton teclado " + Input.GetKey(KeyCode.AltGr));
+        print("Activador " + activator);
 
         if ((Input.GetKey(KeyCode.Joystick1Button0) || Input.GetKey(KeyCode.AltGr)) && activator < 0)
         {
-
+            //print(indexLevels);
             switch (indexLevels)
             {
-
+                
                 case 0:
                     LevelChange.currentInstance.LoadLevel("Level1");
                     break;
@@ -357,6 +371,7 @@ public class MainMenu : MonoBehaviour {
         {
 
             controls = false;
+            controllsScreen.SetActive(false);
             mainMenu = true;
             foreach (Text option in Text)
             {
