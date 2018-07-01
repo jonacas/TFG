@@ -17,15 +17,7 @@ public class LevelChange : MonoBehaviour {
         currentInstance = this;
 
     }
-    /*private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.M)) {
 
-            LoadLevel("Level2");
-
-
-        }
-    }*/
 
     public void LoadLevel(string level) {
 

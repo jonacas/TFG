@@ -6,6 +6,9 @@ public class Level5Manager : MonoBehaviour {
 
     public static Level5Manager currentInstance;
     int objectives = 4;
+    public GameObject explosion;
+    public GameObject littleExplosion;
+    public GameObject bigExplosion;
 
     private void Start()
     {
@@ -19,7 +22,7 @@ public class Level5Manager : MonoBehaviour {
 
         if (objectives <= 0) {
 
-            LevelChange.currentInstance.LoadLevel("Level1");
+            LevelChange.currentInstance.LoadLevel("Menu");
 
 
         }

@@ -36,6 +36,7 @@ public class EnemyIALv4 : MonoBehaviour {
         if (HP <= 0)
         {
 
+            Instantiate(LV4ExplosionResources.currentInstance.explosion, this.transform.position, Quaternion.identity);
             Destroy(Padre);
 
         }
@@ -43,6 +44,7 @@ public class EnemyIALv4 : MonoBehaviour {
 
     public void Defeat() {
 
+        Instantiate(LV4ExplosionResources.currentInstance.explosion, this.transform.position, Quaternion.identity);
         Destroy(Padre);
 
     }

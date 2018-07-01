@@ -153,8 +153,9 @@ public class EnemyLV5 : MonoBehaviour {
         if (LP <= 0) {
 
             PlayerStatsLV5.currentInstance.specialShootBar.value += 1;
-            Destroy(this.gameObject);
-
+            Instantiate(Level5Manager.currentInstance.explosion, this.transform.position, Quaternion.identity);
+            Destroy(this.gameObject,0.25f);
+            
 
         }
 
@@ -164,7 +165,8 @@ public class EnemyLV5 : MonoBehaviour {
     public void Defeat() {
 
 
-        Destroy(this.gameObject);
+        Instantiate(Level5Manager.currentInstance.explosion, this.transform.position, Quaternion.identity);
+        Destroy(this.gameObject, 0.25f);
 
 
     } 

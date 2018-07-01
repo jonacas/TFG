@@ -14,6 +14,7 @@ public class Objective : MonoBehaviour {
         if (life <= 0) {
 
             Level5Manager.currentInstance.ObjectiveDestroy();
+            Instantiate(Level5Manager.currentInstance.bigExplosion, this.transform.position, Quaternion.identity);
             Destroy(this.gameObject);
 
 

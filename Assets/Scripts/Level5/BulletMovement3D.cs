@@ -37,6 +37,7 @@ public class BulletMovement3D : MonoBehaviour {
         if (collision.gameObject.tag == "Obstacle") {
 
             collision.gameObject.GetComponent<Objective>().Damage();
+            Instantiate(Level5Manager.currentInstance.littleExplosion, this.transform.position, Quaternion.identity);
             Destroy(this.gameObject);
 
         }
