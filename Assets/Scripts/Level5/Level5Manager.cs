@@ -18,7 +18,7 @@ public class Level5Manager : MonoBehaviour {
 
     public void ObjectiveDestroy() {
 
-        objectives -= 1;
+        objectives = objectives - 1;
 
         if (objectives <= 0) {
 

@@ -23,6 +23,8 @@ public class MainMenu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         index = 0;
         indexLevels = 0;
         Up = false;
